@@ -14,227 +14,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ASIC Design Flow 设计流程</title>
-    <url>/2021/03/29/ASIC/ASIC_design_flow/</url>
-    <content><![CDATA[<p>An ASIC (application-specific integrated circuit) is an IC customized for a particular use, rather than intended for general-purpose use</p>
-<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h3 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="Figure 1.ASIC概况"></p>
-<h3 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h3><ul>
-<li>预先设计好的单元组成设计库</li>
-<li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
-</ul>
-<h3 id="0-3-ASIC的优势："><a href="#0-3-ASIC的优势：" class="headerlink" title="0.3 ASIC的优势："></a>0.3 ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h3 id="0-4-电路描述与设计过程："><a href="#0-4-电路描述与设计过程：" class="headerlink" title="0.4 电路描述与设计过程："></a>0.4 电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="Figure 2.不同层次描述"></p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="Figure 3.前段/后端"></p>
-<h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><h3 id="1-1-确定体系结构："><a href="#1-1-确定体系结构：" class="headerlink" title="1.1 确定体系结构："></a>1.1 确定体系结构：</h3><blockquote>
-<p>寄存器组有多少组，数量多少</p>
-</blockquote>
-<blockquote>
-<p>指令集：基本指令以及指令编码</p>
-</blockquote>
-<h3 id="1-2-体系微架构："><a href="#1-2-体系微架构：" class="headerlink" title="1.2 体系微架构："></a>1.2 体系微架构：</h3><blockquote>
-<p>A. 多周期流水线结构框图</p>
-</blockquote>
-<blockquote>
-<p>B. 控制信号逻辑，控制状态机，状态转移图</p>
-</blockquote>
-<h3 id="1-3-逻辑设计："><a href="#1-3-逻辑设计：" class="headerlink" title="1.3 逻辑设计："></a>1.3 逻辑设计：</h3><blockquote>
-<p>A. 顶层接口：引脚数量，名称定义</p>
-</blockquote>
-<blockquote>
-<p>B. 确定设计层次：控制通路和数据通路确定，电路组，标准单元库等等</p>
-</blockquote>
-<blockquote>
-<p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="Figure 4.控制&amp;数据通路"></p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="Figure 5.硬件的层次化描述"></p>
-<h3 id="1-4-物理设计："><a href="#1-4-物理设计：" class="headerlink" title="1.4 物理设计："></a>1.4 物理设计：</h3><blockquote>
-<p>A：导入标准单元库（等高）</p>
-<p>B：Floorplan 平面规划</p>
-<p>C：引脚布局</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="Figure 6.物理设计"></p>
-<h3 id="1-5-设计验证："><a href="#1-5-设计验证：" class="headerlink" title="1.5 设计验证："></a>1.5 设计验证：</h3><blockquote>
-<p>确保功能正确</p>
-</blockquote>
-<blockquote>
-<p>确保时钟频率满足要求</p>
-</blockquote>
-<blockquote>
-<p>确保功耗和面积满足要求</p>
-</blockquote>
-<blockquote>
-<p>确保流片成功</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="Figure 7.设计过程"></p>
-<h3 id="1-6-流片-（tape-out）"><a href="#1-6-流片-（tape-out）" class="headerlink" title="1.6 流片 （tape out）"></a>1.6 流片 （tape out）</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="Figure 8.MPW 服务"></p>
-<h3 id="1-7-封装（日月光）"><a href="#1-7-封装（日月光）" class="headerlink" title="1.7 封装（日月光）"></a>1.7 封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
-<h3 id="1-9-测试（华天）"><a href="#1-9-测试（华天）" class="headerlink" title="1.9 测试（华天）"></a>1.9 测试（华天）</h3><h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2 ASIC设计过程及其工具"></a>2 ASIC设计过程及其工具</h2><h3 id="2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="Figure 9.ASIC粗略可分为两个阶段"></p>
-<h3 id="2-2-基于Synosys平台各项工具及其功能："><a href="#2-2-基于Synosys平台各项工具及其功能：" class="headerlink" title="2.2 基于Synosys平台各项工具及其功能："></a>2.2 基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="Figure 10.ASIC设计工具"></p>
-<p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="Figure 11.逻辑/物理综合的原理"></p>
-<p>————————————————————————</p>
-<h2 id="3-Appendix"><a href="#3-Appendix" class="headerlink" title="3 Appendix"></a>3 Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
-<ol>
-<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
-<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
-<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
-<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
-<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
-<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
-<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
-<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
-<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
-<li>获得 GDSII 文档。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>VLSI</category>
-      </categories>
-      <tags>
-        <tag>VLSI</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 1</title>
-    <url>/2021/05/29/CDC/CDC_1/</url>
-    <content><![CDATA[<p>Reference：</p>
-<ol>
-<li><p>《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田</p>
-</li>
-<li><p>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》-Clifford E. Cummings</p>
-</li>
-</ol>
-<h3 id="1-Metastability"><a href="#1-Metastability" class="headerlink" title="1. Metastability:"></a>1. Metastability:</h3><p>亚稳态指信号在一段时间内不再稳定在0或者1，原因在于存储元件并非理想元件，对于寄存器信号需要在时钟边沿前后保持不变（setup&amp;holding约束），否则可能产生不稳定的输出。在多时钟域设计中，亚稳态不能被避免但有害效应可以被中和抵消。</p>
-<h4 id="1-1-Synchronization-failure"><a href="#1-1-Synchronization-failure" class="headerlink" title="1.1 Synchronization failure"></a>1.1 Synchronization failure</h4><p>下图展示两级FF，但是两级的CLK不同步，第二级FF在第一级输出未达到稳定时进行了采样，产生synchronization failure. 如下图，采样信号无法在bclk的下一个上升沿保持稳定，亚稳态会被传递。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/1.png" alt="同步错误"></p>
-<p>“When sampling a changing data signal with a clock … the order of the events determines the outcome. The smaller the time difference between the events, the longer it takes to determine which came first. When two events occur very close together, the decision process can take longer than the time allotted, and a synchronization failure occurs.”</p>
-<h4 id="1-2-Consideration"><a href="#1-2-Consideration" class="headerlink" title="1.2 Consideration"></a>1.2 Consideration</h4><p>每一级的FF都要一个具体的setup time 和 hold time，即要求input的数据在clock 上升沿前保持一段时间（setup）和之后保持一段时间（hold）。对于一个具体的设计而言，这个时间窗口（亚稳态窗口）可以视为一个design parameter，当这个时间窗口输入数据发生变化，输出就可能产生亚稳态。</p>
-<h4 id="1-3-MTBF-Mean-Time-Before-Failure"><a href="#1-3-MTBF-Mean-Time-Before-Failure" class="headerlink" title="1.3 MTBF (Mean Time Before Failure)"></a>1.3 MTBF (Mean Time Before Failure)</h4><p>对于大多数应用，尤其是跨时钟域计算MTBF（Mean Time Before Failure）非常重要。Failure指的是信号通过通过一个同步寄存器进入亚稳态，持续保持亚稳态直到被下一级寄存器采样。MTBF表示两个failure之间的时间（希望大到几天，几年）。</p>
-<p>MTBF表示触发器采样失败的时间间隔。MTBF的计算公式如下：MTBF的数值越大越好；大MTBF表明潜在失效发生在更长的时间范围内；小的MTBF表明亚稳态更可能发生。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/2.png" alt="MTBF相关"></p>
-<p>定量计算公式如下：<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/3.png" alt="MTBF定量计算公式"><br>其中：</p>
-<ul>
-<li>tr = 分辨时间（时钟沿开始）// resolution time (start from clk edge)</li>
-<li>𝜏,𝑇0 = 触发器参数 // parameters releated to FF</li>
-<li>𝑓 = 采样时钟频率 // sampling frequency</li>
-<li>a = 异步事件触发频率 // synchronized events activated frequency</li>
-</ul>
-<p>对于一个典型的 0.25µm 工艺的 ASIC 库中的一个触发器，我们取如下的参数：tr = 2.3ns, τ = 0.31ns, T0 = 9.6as, f=100MHZ, a = 10MHZ, MTBF = <strong>2.01 days</strong></p>
-<h4 id="1-4-Approaches-to-reduce-metastability"><a href="#1-4-Approaches-to-reduce-metastability" class="headerlink" title="1.4 Approaches to reduce metastability"></a>1.4 Approaches to reduce metastability</h4><p>从MTBF的角度，减少亚稳态的方法有以下几种</p>
-<ol>
-<li><p>使用同步器：也就是我们常用的2级或者多级FF打拍的方法;同步器后面会专门论述；</p>
-</li>
-<li><p>降低频率：如果能满足功能要求，那么降低频率能够减少亚稳态的产生;</p>
-</li>
-<li><p>避免变化过快或者过于频繁的信号进行跨时钟采样</p>
-</li>
-<li><p>采用更快的触发器：更快的触发器，也可以减少亚稳态的产生。</p>
-</li>
-</ol>
-<h3 id="2-Synchronizers"><a href="#2-Synchronizers" class="headerlink" title="2. Synchronizers"></a>2. Synchronizers</h3><p>当信号跨时钟域时候，最容易忽视的一个问题是，这个信号需要每个时钟都被采样，不能漏掉每一个值吗？这是新手最容易忽视的一个问题。当考虑到信号穿过CDC边界时，</p>
-<p>我们考虑两种情况：</p>
-<ul>
-<li>有一些信号不需要sample 可以miss </li>
-</ul>
-<p>// some signals are not required to be sampled and could be missed.</p>
-<ul>
-<li>每一个信号都需要被sample 并且跨CDC </li>
-</ul>
-<p>// every signals are required to be sampled.</p>
-<p>在这两种情况下：CDC信号都需要某种形式的同步在接收时钟域内<br>In both of these scenarios, the CDC signals will require some form of <strong>synchronization</strong> into the receiving clock domain.</p>
-<p>同步器：是采样一个异步时钟信号，并将其过渡成与一个在本地或者采样时钟的输出信号。“A synchronizer is a device that samples an asynchronous signal and outputs a version of the signal that has transitions synchronized to a local or sample clock”</p>
-<h4 id="2-1-Two-flip-flop-synchronizer"><a href="#2-1-Two-flip-flop-synchronizer" class="headerlink" title="2.1 Two flip-flop synchronizer"></a>2.1 Two flip-flop synchronizer</h4><p>最简单和最常用的同步器，是两级FF同步器.</p>
-<p>第一级FF采样一个异步信号，极端情况（采样一个变化信号）则第一级FF输出为亚稳态；保持一个时钟周期（亚稳态recover），信号被重新采样为有效的输出。</p>
-<p>Note：双寄存器并不能消除亚稳态，它只是减少出现亚稳态的概率，减少到一个可以几乎忽略不计的程度。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/4.png" alt="两级同步器"></p>
-<p>在这个过程，需要保证的这个保持时间，否则会产生synchronization failure。 这个时间与输入信号的频率和同步FF的频率有关。这个时间为MTBF。</p>
-<p>对于大多数同步应用，两级FF同步器已经足够移除所有亚稳态。</p>
-<h4 id="2-3-Three-flip-flop-synchronizer"><a href="#2-3-Three-flip-flop-synchronizer" class="headerlink" title="2.3 Three flip-flop synchronizer"></a>2.3 Three flip-flop synchronizer</h4><p>对于一些极其高速的应用，MTBF在两级同步器之间太短。因此可以添加第三级FF以增加MTBF到一个满意的时间范围。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/5.png" alt="三级同步器"></p>
-]]></content>
-      <categories>
-        <category>VLSI</category>
-        <category>CDC</category>
-      </categories>
-      <tags>
-        <tag>VLSI</tag>
-        <tag>CDC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 3</title>
-    <url>/2021/05/29/CDC/CDC_3/</url>
-    <content><![CDATA[<p>Check</p>
-]]></content>
-      <categories>
-        <category>VLSI</category>
-        <category>CDC</category>
-      </categories>
-      <tags>
-        <tag>VLSI</tag>
-        <tag>CDC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 2</title>
-    <url>/2021/05/29/CDC/CDC_2/</url>
-    <content><![CDATA[<p>Reference：<br>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》    -    Clifford E. Cummings</p>
-<h3 id="2-4-Synchronizing-signals-requirements"><a href="#2-4-Synchronizing-signals-requirements" class="headerlink" title="2.4 Synchronizing signals requirements:"></a>2.4 Synchronizing signals requirements:</h3><h4 id="2-4-1-Requirment-for-sending-signals"><a href="#2-4-1-Requirment-for-sending-signals" class="headerlink" title="2.4.1 Requirment for sending signals"></a>2.4.1 Requirment for sending signals</h4><p>在发射时钟域&amp;接受时钟域，发送信号需要被registered。</p>
-<p>对同步过程很容易误解成，只需要接受时钟域同步即可。但对于发送时钟域，异步信号是需要提前存在register中，即发送域寄存器和接受域寄存器之间不再有组合逻辑电路。若有组合逻辑电路：接受域的输入信号adat会由于组合逻辑电路不同输入变化带来不同情况的延迟变化，逻辑值不同等情况，这增加潜在毛刺（或是震荡信号）的可能性，也增加了亚稳态的可能。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/1.png" alt="without registered"></p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/2.png" alt="with registered"></p>
-<h4 id="2-4-2-requirement-for-reliability-of-signals"><a href="#2-4-2-requirement-for-reliability-of-signals" class="headerlink" title="2.4.2 requirement for reliability of signals"></a>2.4.2 requirement for reliability of signals</h4><p>对信号的可靠性的要求。用更快的时钟采样慢信号（通常是1.5倍以上相较于慢信号），满信号会被采样一次或者多次，通常来说同步慢信号不会产生很多问题。但慢时钟采快信号会带来问题。</p>
-<p>The “three edge” requirement：”input data values must be stable for three destination clock edges” 输入数据值需要在三个目标时钟沿保持稳定，即1.5个时钟周期。</p>
-<p>Problem A: Passing a fast CDC pulse</p>
-<p>当CDC信号只有一个快时钟周期的宽度，那么CDC信号可能在两个慢时钟的上升沿之间变化，因而接受时钟域并没有采集到信号变化。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/3.png" alt="传递一个高速CDC脉冲"></p>
-<p>Problem B: Sampling a long CDC pulse - but not long enough</p>
-<p>当CDC信号的宽度大概略大于一个慢时钟周期的宽度，那么CDC信号在绝大多数情况下能顺利通过。但是在下图非常罕见的情况，adat恰好横跨一个慢周期的上升沿，那么有可能违反第一个寄存器的setup time要求和第二个寄存器的hold time要求，输出为亚稳态。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/4.png" alt="采样一个不够长的CDC脉冲"></p>
-<p>当不允许采样过程中丢失采样点，通常来说有两种方法来解决：</p>
-<ol>
-<li>开环控制：用同步器对信号进行采样：</li>
-</ol>
-<p>保证CDC信号大概在采样时钟周期地1.5倍左右，如此信号在一个周期中会被至少采样一次。</p>
-<p>优点：开环地控制信号长度，最快的发送方式，不需要发送信号返回的acknowlegment。</p>
-<p>缺点：当参数变化时候，工程师可能很难在发现这个错误。这个问题可以通过SV的断言来判断信号是否满足了3edge要求。<br>This problem can be minimized by adding a SystemVerilog Assertion to the model to detect if the input pulse ever fails to exceed the “three edges” design requirement.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/5.png" alt="开环控制"></p>
-<p>闭环控制：信号穿过CDC后返回一个acknowledgement反馈信号，自动延长快时钟域的信号<br>在发射时钟域添加一个使能信号。当接受时钟域接受到信号后，通过一个发射时钟域的两级同步器产生acknowledgement信号，数据再从adat进入，开始传入下一个数据。</p>
-<p>缺点：整个过程延迟过长（两级同步器）</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/6.png" alt="闭环控制"></p>
-<h2 id="3-Multiple-signals-between-clock-domains"><a href="#3-Multiple-signals-between-clock-domains" class="headerlink" title="3. Multiple signals between clock domains"></a>3. Multiple signals between clock domains</h2><p>当传输多位信号时，简单的同步器并不能保证数据的安全传输。多位信号的传输的问题在于信号在同步过程中，数据变化的偏移（skew）也可能被不同上升沿采样到。</p>
-<p>为了应对多位CDC偏移采样的情况，主要有以下几种解决方案：</p>
-<ul>
-<li>尽可能让多位的CDC信号合成单bitCDC信号</li>
-<li>Multi-cycle path formulation. 使用同步信号来保证CDC信号能通过</li>
-<li>使用Gray code</li>
-</ul>
-<h3 id="3-1-控制信号多比特的同步"><a href="#3-1-控制信号多比特的同步" class="headerlink" title="3.1 控制信号多比特的同步"></a>3.1 控制信号多比特的同步</h3><h4 id="Problem-1：多个控制信号之间传输偏移"><a href="#Problem-1：多个控制信号之间传输偏移" class="headerlink" title="Problem 1：多个控制信号之间传输偏移"></a>Problem 1：多个控制信号之间传输偏移</h4><p>例如下面例子，当load信号和en信号同时在接收时钟域拉高，aq_load 和 aq_en才能同时被传输，才能实现load的操作。因而控制信号的skew可以导致两个控制信号的传输不同步，今儿导致后续接收时钟域的控制信号不同步。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/7.png" alt="多个控制信号"></p>
-<h4 id="Solution-1：合并"><a href="#Solution-1：合并" class="headerlink" title="Solution 1：合并"></a>Solution 1：合并</h4><p>将两个控制信号合并成一个，控制信号之间就不存在同步问题。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/8.png" alt="合并"></p>
-<h4 id="Problem-2-多个控制信号之间存在时钟相位差"><a href="#Problem-2-多个控制信号之间存在时钟相位差" class="headerlink" title="Problem 2: 多个控制信号之间存在时钟相位差"></a>Problem 2: 多个控制信号之间存在时钟相位差</h4><p>如果两个控制信号本身存在一定的时钟相位差，以满足一些逻辑或者数据传输的时序要求，那么在传输过程中（或者说在接收时钟域中），可能控制信号未被采集到。因而导致数据通路出问题</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/9.png" alt="时钟相位差"></p>
-<h4 id="Solution-2：在接受域内产生控制信号"><a href="#Solution-2：在接受域内产生控制信号" class="headerlink" title="Solution 2：在接受域内产生控制信号"></a>Solution 2：在接受域内产生控制信号</h4><p>改进方法：只传输一个信号，另一个信号在同步时钟域中产生。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/10.png" alt="接受域产生控制信号"></p>
-<h3 id="3-2-数据信号多比特的同步"><a href="#3-2-数据信号多比特的同步" class="headerlink" title="3.2 数据信号多比特的同步"></a>3.2 数据信号多比特的同步</h3><p>数据多位数据的传输对位间偏移敏感。下面例子展示了编码信号传播到接收时钟域，若偏移存在，可能导致接受时钟域产生完全错误的结果。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/11.png" alt="接受域产生控制信号"></p>
-<p>解决数据同步方法主要有两种 </p>
-<ol>
-<li>Multi-cycle path formulation 多周期路径规划    </li>
-<li>FIFO</li>
-</ol>
-]]></content>
-      <categories>
-        <category>VLSI</category>
-        <category>CDC</category>
-      </categories>
-      <tags>
-        <tag>VLSI</tag>
-        <tag>CDC</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>5. Memory Hierachy</title>
     <url>/2021/11/07/Computer_architecture/5.%20Memory%20Hierachy/</url>
     <content><![CDATA[<h1 id="5-1-Memory-Hierachiy-Overview"><a href="#5-1-Memory-Hierachiy-Overview" class="headerlink" title="5.1  Memory Hierachiy Overview"></a>5.1  Memory Hierachiy Overview</h1><h2 id="5-1-1-Memory-development"><a href="#5-1-1-Memory-development" class="headerlink" title="5.1.1 Memory development"></a>5.1.1 Memory development</h2><p>Memory的性能发展并没有跟上CPU的性能，在计算机运算（CPU和Memory协同）内存的访问时间即数据的搬运时间过长，制约了计算性能。处理器的性能的发展速度远超于内存（如DRAM）的发展速度，这里有电路设计优化的因素，也有工艺的因素。处理器如果需要快速的处理数据，无论是指令还是数据，存储系统都应该能够快速供给。</p>
@@ -695,6 +474,142 @@
       </categories>
       <tags>
         <tag>Computer architecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clock Domain Crossing (CDC) Part 1</title>
+    <url>/2021/05/29/CDC/CDC_1/</url>
+    <content><![CDATA[<p>Reference：</p>
+<ol>
+<li><p>《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田</p>
+</li>
+<li><p>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》-Clifford E. Cummings</p>
+</li>
+</ol>
+<h3 id="1-Metastability"><a href="#1-Metastability" class="headerlink" title="1. Metastability:"></a>1. Metastability:</h3><p>亚稳态指信号在一段时间内不再稳定在0或者1，原因在于存储元件并非理想元件，对于寄存器信号需要在时钟边沿前后保持不变（setup&amp;holding约束），否则可能产生不稳定的输出。在多时钟域设计中，亚稳态不能被避免但有害效应可以被中和抵消。</p>
+<h4 id="1-1-Synchronization-failure"><a href="#1-1-Synchronization-failure" class="headerlink" title="1.1 Synchronization failure"></a>1.1 Synchronization failure</h4><p>下图展示两级FF，但是两级的CLK不同步，第二级FF在第一级输出未达到稳定时进行了采样，产生synchronization failure. 如下图，采样信号无法在bclk的下一个上升沿保持稳定，亚稳态会被传递。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/1.png" alt="同步错误"></p>
+<p>“When sampling a changing data signal with a clock … the order of the events determines the outcome. The smaller the time difference between the events, the longer it takes to determine which came first. When two events occur very close together, the decision process can take longer than the time allotted, and a synchronization failure occurs.”</p>
+<h4 id="1-2-Consideration"><a href="#1-2-Consideration" class="headerlink" title="1.2 Consideration"></a>1.2 Consideration</h4><p>每一级的FF都要一个具体的setup time 和 hold time，即要求input的数据在clock 上升沿前保持一段时间（setup）和之后保持一段时间（hold）。对于一个具体的设计而言，这个时间窗口（亚稳态窗口）可以视为一个design parameter，当这个时间窗口输入数据发生变化，输出就可能产生亚稳态。</p>
+<h4 id="1-3-MTBF-Mean-Time-Before-Failure"><a href="#1-3-MTBF-Mean-Time-Before-Failure" class="headerlink" title="1.3 MTBF (Mean Time Before Failure)"></a>1.3 MTBF (Mean Time Before Failure)</h4><p>对于大多数应用，尤其是跨时钟域计算MTBF（Mean Time Before Failure）非常重要。Failure指的是信号通过通过一个同步寄存器进入亚稳态，持续保持亚稳态直到被下一级寄存器采样。MTBF表示两个failure之间的时间（希望大到几天，几年）。</p>
+<p>MTBF表示触发器采样失败的时间间隔。MTBF的计算公式如下：MTBF的数值越大越好；大MTBF表明潜在失效发生在更长的时间范围内；小的MTBF表明亚稳态更可能发生。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/2.png" alt="MTBF相关"></p>
+<p>定量计算公式如下：<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/3.png" alt="MTBF定量计算公式"><br>其中：</p>
+<ul>
+<li>tr = 分辨时间（时钟沿开始）// resolution time (start from clk edge)</li>
+<li>𝜏,𝑇0 = 触发器参数 // parameters releated to FF</li>
+<li>𝑓 = 采样时钟频率 // sampling frequency</li>
+<li>a = 异步事件触发频率 // synchronized events activated frequency</li>
+</ul>
+<p>对于一个典型的 0.25µm 工艺的 ASIC 库中的一个触发器，我们取如下的参数：tr = 2.3ns, τ = 0.31ns, T0 = 9.6as, f=100MHZ, a = 10MHZ, MTBF = <strong>2.01 days</strong></p>
+<h4 id="1-4-Approaches-to-reduce-metastability"><a href="#1-4-Approaches-to-reduce-metastability" class="headerlink" title="1.4 Approaches to reduce metastability"></a>1.4 Approaches to reduce metastability</h4><p>从MTBF的角度，减少亚稳态的方法有以下几种</p>
+<ol>
+<li><p>使用同步器：也就是我们常用的2级或者多级FF打拍的方法;同步器后面会专门论述；</p>
+</li>
+<li><p>降低频率：如果能满足功能要求，那么降低频率能够减少亚稳态的产生;</p>
+</li>
+<li><p>避免变化过快或者过于频繁的信号进行跨时钟采样</p>
+</li>
+<li><p>采用更快的触发器：更快的触发器，也可以减少亚稳态的产生。</p>
+</li>
+</ol>
+<h3 id="2-Synchronizers"><a href="#2-Synchronizers" class="headerlink" title="2. Synchronizers"></a>2. Synchronizers</h3><p>当信号跨时钟域时候，最容易忽视的一个问题是，这个信号需要每个时钟都被采样，不能漏掉每一个值吗？这是新手最容易忽视的一个问题。当考虑到信号穿过CDC边界时，</p>
+<p>我们考虑两种情况：</p>
+<ul>
+<li>有一些信号不需要sample 可以miss </li>
+</ul>
+<p>// some signals are not required to be sampled and could be missed.</p>
+<ul>
+<li>每一个信号都需要被sample 并且跨CDC </li>
+</ul>
+<p>// every signals are required to be sampled.</p>
+<p>在这两种情况下：CDC信号都需要某种形式的同步在接收时钟域内<br>In both of these scenarios, the CDC signals will require some form of <strong>synchronization</strong> into the receiving clock domain.</p>
+<p>同步器：是采样一个异步时钟信号，并将其过渡成与一个在本地或者采样时钟的输出信号。“A synchronizer is a device that samples an asynchronous signal and outputs a version of the signal that has transitions synchronized to a local or sample clock”</p>
+<h4 id="2-1-Two-flip-flop-synchronizer"><a href="#2-1-Two-flip-flop-synchronizer" class="headerlink" title="2.1 Two flip-flop synchronizer"></a>2.1 Two flip-flop synchronizer</h4><p>最简单和最常用的同步器，是两级FF同步器.</p>
+<p>第一级FF采样一个异步信号，极端情况（采样一个变化信号）则第一级FF输出为亚稳态；保持一个时钟周期（亚稳态recover），信号被重新采样为有效的输出。</p>
+<p>Note：双寄存器并不能消除亚稳态，它只是减少出现亚稳态的概率，减少到一个可以几乎忽略不计的程度。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/4.png" alt="两级同步器"></p>
+<p>在这个过程，需要保证的这个保持时间，否则会产生synchronization failure。 这个时间与输入信号的频率和同步FF的频率有关。这个时间为MTBF。</p>
+<p>对于大多数同步应用，两级FF同步器已经足够移除所有亚稳态。</p>
+<h4 id="2-3-Three-flip-flop-synchronizer"><a href="#2-3-Three-flip-flop-synchronizer" class="headerlink" title="2.3 Three flip-flop synchronizer"></a>2.3 Three flip-flop synchronizer</h4><p>对于一些极其高速的应用，MTBF在两级同步器之间太短。因此可以添加第三级FF以增加MTBF到一个满意的时间范围。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/5.png" alt="三级同步器"></p>
+]]></content>
+      <categories>
+        <category>VLSI</category>
+        <category>CDC</category>
+      </categories>
+      <tags>
+        <tag>VLSI</tag>
+        <tag>CDC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clock Domain Crossing (CDC) Part 2</title>
+    <url>/2021/05/29/CDC/CDC_2/</url>
+    <content><![CDATA[<p>Reference：<br>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》    -    Clifford E. Cummings</p>
+<h3 id="2-4-Synchronizing-signals-requirements"><a href="#2-4-Synchronizing-signals-requirements" class="headerlink" title="2.4 Synchronizing signals requirements:"></a>2.4 Synchronizing signals requirements:</h3><h4 id="2-4-1-Requirment-for-sending-signals"><a href="#2-4-1-Requirment-for-sending-signals" class="headerlink" title="2.4.1 Requirment for sending signals"></a>2.4.1 Requirment for sending signals</h4><p>在发射时钟域&amp;接受时钟域，发送信号需要被registered。</p>
+<p>对同步过程很容易误解成，只需要接受时钟域同步即可。但对于发送时钟域，异步信号是需要提前存在register中，即发送域寄存器和接受域寄存器之间不再有组合逻辑电路。若有组合逻辑电路：接受域的输入信号adat会由于组合逻辑电路不同输入变化带来不同情况的延迟变化，逻辑值不同等情况，这增加潜在毛刺（或是震荡信号）的可能性，也增加了亚稳态的可能。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/1.png" alt="without registered"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/2.png" alt="with registered"></p>
+<h4 id="2-4-2-requirement-for-reliability-of-signals"><a href="#2-4-2-requirement-for-reliability-of-signals" class="headerlink" title="2.4.2 requirement for reliability of signals"></a>2.4.2 requirement for reliability of signals</h4><p>对信号的可靠性的要求。用更快的时钟采样慢信号（通常是1.5倍以上相较于慢信号），满信号会被采样一次或者多次，通常来说同步慢信号不会产生很多问题。但慢时钟采快信号会带来问题。</p>
+<p>The “three edge” requirement：”input data values must be stable for three destination clock edges” 输入数据值需要在三个目标时钟沿保持稳定，即1.5个时钟周期。</p>
+<p>Problem A: Passing a fast CDC pulse</p>
+<p>当CDC信号只有一个快时钟周期的宽度，那么CDC信号可能在两个慢时钟的上升沿之间变化，因而接受时钟域并没有采集到信号变化。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/3.png" alt="传递一个高速CDC脉冲"></p>
+<p>Problem B: Sampling a long CDC pulse - but not long enough</p>
+<p>当CDC信号的宽度大概略大于一个慢时钟周期的宽度，那么CDC信号在绝大多数情况下能顺利通过。但是在下图非常罕见的情况，adat恰好横跨一个慢周期的上升沿，那么有可能违反第一个寄存器的setup time要求和第二个寄存器的hold time要求，输出为亚稳态。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/4.png" alt="采样一个不够长的CDC脉冲"></p>
+<p>当不允许采样过程中丢失采样点，通常来说有两种方法来解决：</p>
+<ol>
+<li>开环控制：用同步器对信号进行采样：</li>
+</ol>
+<p>保证CDC信号大概在采样时钟周期地1.5倍左右，如此信号在一个周期中会被至少采样一次。</p>
+<p>优点：开环地控制信号长度，最快的发送方式，不需要发送信号返回的acknowlegment。</p>
+<p>缺点：当参数变化时候，工程师可能很难在发现这个错误。这个问题可以通过SV的断言来判断信号是否满足了3edge要求。<br>This problem can be minimized by adding a SystemVerilog Assertion to the model to detect if the input pulse ever fails to exceed the “three edges” design requirement.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/5.png" alt="开环控制"></p>
+<p>闭环控制：信号穿过CDC后返回一个acknowledgement反馈信号，自动延长快时钟域的信号<br>在发射时钟域添加一个使能信号。当接受时钟域接受到信号后，通过一个发射时钟域的两级同步器产生acknowledgement信号，数据再从adat进入，开始传入下一个数据。</p>
+<p>缺点：整个过程延迟过长（两级同步器）</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/6.png" alt="闭环控制"></p>
+<h2 id="3-Multiple-signals-between-clock-domains"><a href="#3-Multiple-signals-between-clock-domains" class="headerlink" title="3. Multiple signals between clock domains"></a>3. Multiple signals between clock domains</h2><p>当传输多位信号时，简单的同步器并不能保证数据的安全传输。多位信号的传输的问题在于信号在同步过程中，数据变化的偏移（skew）也可能被不同上升沿采样到。</p>
+<p>为了应对多位CDC偏移采样的情况，主要有以下几种解决方案：</p>
+<ul>
+<li>尽可能让多位的CDC信号合成单bitCDC信号</li>
+<li>Multi-cycle path formulation. 使用同步信号来保证CDC信号能通过</li>
+<li>使用Gray code</li>
+</ul>
+<h3 id="3-1-控制信号多比特的同步"><a href="#3-1-控制信号多比特的同步" class="headerlink" title="3.1 控制信号多比特的同步"></a>3.1 控制信号多比特的同步</h3><h4 id="Problem-1：多个控制信号之间传输偏移"><a href="#Problem-1：多个控制信号之间传输偏移" class="headerlink" title="Problem 1：多个控制信号之间传输偏移"></a>Problem 1：多个控制信号之间传输偏移</h4><p>例如下面例子，当load信号和en信号同时在接收时钟域拉高，aq_load 和 aq_en才能同时被传输，才能实现load的操作。因而控制信号的skew可以导致两个控制信号的传输不同步，今儿导致后续接收时钟域的控制信号不同步。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/7.png" alt="多个控制信号"></p>
+<h4 id="Solution-1：合并"><a href="#Solution-1：合并" class="headerlink" title="Solution 1：合并"></a>Solution 1：合并</h4><p>将两个控制信号合并成一个，控制信号之间就不存在同步问题。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/8.png" alt="合并"></p>
+<h4 id="Problem-2-多个控制信号之间存在时钟相位差"><a href="#Problem-2-多个控制信号之间存在时钟相位差" class="headerlink" title="Problem 2: 多个控制信号之间存在时钟相位差"></a>Problem 2: 多个控制信号之间存在时钟相位差</h4><p>如果两个控制信号本身存在一定的时钟相位差，以满足一些逻辑或者数据传输的时序要求，那么在传输过程中（或者说在接收时钟域中），可能控制信号未被采集到。因而导致数据通路出问题</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/9.png" alt="时钟相位差"></p>
+<h4 id="Solution-2：在接受域内产生控制信号"><a href="#Solution-2：在接受域内产生控制信号" class="headerlink" title="Solution 2：在接受域内产生控制信号"></a>Solution 2：在接受域内产生控制信号</h4><p>改进方法：只传输一个信号，另一个信号在同步时钟域中产生。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/10.png" alt="接受域产生控制信号"></p>
+<h3 id="3-2-数据信号多比特的同步"><a href="#3-2-数据信号多比特的同步" class="headerlink" title="3.2 数据信号多比特的同步"></a>3.2 数据信号多比特的同步</h3><p>数据多位数据的传输对位间偏移敏感。下面例子展示了编码信号传播到接收时钟域，若偏移存在，可能导致接受时钟域产生完全错误的结果。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/11.png" alt="接受域产生控制信号"></p>
+<p>解决数据同步方法主要有两种 </p>
+<ol>
+<li>Multi-cycle path formulation 多周期路径规划    </li>
+<li>FIFO</li>
+</ol>
+]]></content>
+      <categories>
+        <category>VLSI</category>
+        <category>CDC</category>
+      </categories>
+      <tags>
+        <tag>VLSI</tag>
+        <tag>CDC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clock Domain Crossing (CDC) Part 3</title>
+    <url>/2021/05/29/CDC/CDC_3/</url>
+    <content><![CDATA[<p>Check</p>
+]]></content>
+      <categories>
+        <category>VLSI</category>
+        <category>CDC</category>
+      </categories>
+      <tags>
+        <tag>VLSI</tag>
+        <tag>CDC</tag>
       </tags>
   </entry>
   <entry>
