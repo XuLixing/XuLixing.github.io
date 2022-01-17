@@ -477,63 +477,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Clock Domain Crossing (CDC) Part 2</title>
-    <url>/2021/05/29/CDC/CDC_2/</url>
-    <content><![CDATA[<p>Reference：<br>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》    -    Clifford E. Cummings</p>
-<h3 id="2-4-Synchronizing-signals-requirements"><a href="#2-4-Synchronizing-signals-requirements" class="headerlink" title="2.4 Synchronizing signals requirements:"></a>2.4 Synchronizing signals requirements:</h3><h4 id="2-4-1-Requirment-for-sending-signals"><a href="#2-4-1-Requirment-for-sending-signals" class="headerlink" title="2.4.1 Requirment for sending signals"></a>2.4.1 Requirment for sending signals</h4><p>在发射时钟域&amp;接受时钟域，发送信号需要被registered。</p>
-<p>对同步过程很容易误解成，只需要接受时钟域同步即可。但对于发送时钟域，异步信号是需要提前存在register中，即发送域寄存器和接受域寄存器之间不再有组合逻辑电路。若有组合逻辑电路：接受域的输入信号adat会由于组合逻辑电路不同输入变化带来不同情况的延迟变化，逻辑值不同等情况，这增加潜在毛刺（或是震荡信号）的可能性，也增加了亚稳态的可能。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/1.png" alt="without registered"></p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/2.png" alt="with registered"></p>
-<h4 id="2-4-2-requirement-for-reliability-of-signals"><a href="#2-4-2-requirement-for-reliability-of-signals" class="headerlink" title="2.4.2 requirement for reliability of signals"></a>2.4.2 requirement for reliability of signals</h4><p>对信号的可靠性的要求。用更快的时钟采样慢信号（通常是1.5倍以上相较于慢信号），满信号会被采样一次或者多次，通常来说同步慢信号不会产生很多问题。但慢时钟采快信号会带来问题。</p>
-<p>The “three edge” requirement：”input data values must be stable for three destination clock edges” 输入数据值需要在三个目标时钟沿保持稳定，即1.5个时钟周期。</p>
-<p>Problem A: Passing a fast CDC pulse</p>
-<p>当CDC信号只有一个快时钟周期的宽度，那么CDC信号可能在两个慢时钟的上升沿之间变化，因而接受时钟域并没有采集到信号变化。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/3.png" alt="传递一个高速CDC脉冲"></p>
-<p>Problem B: Sampling a long CDC pulse - but not long enough</p>
-<p>当CDC信号的宽度大概略大于一个慢时钟周期的宽度，那么CDC信号在绝大多数情况下能顺利通过。但是在下图非常罕见的情况，adat恰好横跨一个慢周期的上升沿，那么有可能违反第一个寄存器的setup time要求和第二个寄存器的hold time要求，输出为亚稳态。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/4.png" alt="采样一个不够长的CDC脉冲"></p>
-<p>当不允许采样过程中丢失采样点，通常来说有两种方法来解决：</p>
-<ol>
-<li>开环控制：用同步器对信号进行采样：</li>
-</ol>
-<p>保证CDC信号大概在采样时钟周期地1.5倍左右，如此信号在一个周期中会被至少采样一次。</p>
-<p>优点：开环地控制信号长度，最快的发送方式，不需要发送信号返回的acknowlegment。</p>
-<p>缺点：当参数变化时候，工程师可能很难在发现这个错误。这个问题可以通过SV的断言来判断信号是否满足了3edge要求。<br>This problem can be minimized by adding a SystemVerilog Assertion to the model to detect if the input pulse ever fails to exceed the “three edges” design requirement.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/5.png" alt="开环控制"></p>
-<p>闭环控制：信号穿过CDC后返回一个acknowledgement反馈信号，自动延长快时钟域的信号<br>在发射时钟域添加一个使能信号。当接受时钟域接受到信号后，通过一个发射时钟域的两级同步器产生acknowledgement信号，数据再从adat进入，开始传入下一个数据。</p>
-<p>缺点：整个过程延迟过长（两级同步器）</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/6.png" alt="闭环控制"></p>
-<h2 id="3-Multiple-signals-between-clock-domains"><a href="#3-Multiple-signals-between-clock-domains" class="headerlink" title="3. Multiple signals between clock domains"></a>3. Multiple signals between clock domains</h2><p>当传输多位信号时，简单的同步器并不能保证数据的安全传输。多位信号的传输的问题在于信号在同步过程中，数据变化的偏移（skew）也可能被不同上升沿采样到。</p>
-<p>为了应对多位CDC偏移采样的情况，主要有以下几种解决方案：</p>
-<ul>
-<li>尽可能让多位的CDC信号合成单bitCDC信号</li>
-<li>Multi-cycle path formulation. 使用同步信号来保证CDC信号能通过</li>
-<li>使用Gray code</li>
-</ul>
-<h3 id="3-1-控制信号多比特的同步"><a href="#3-1-控制信号多比特的同步" class="headerlink" title="3.1 控制信号多比特的同步"></a>3.1 控制信号多比特的同步</h3><h4 id="Problem-1：多个控制信号之间传输偏移"><a href="#Problem-1：多个控制信号之间传输偏移" class="headerlink" title="Problem 1：多个控制信号之间传输偏移"></a>Problem 1：多个控制信号之间传输偏移</h4><p>例如下面例子，当load信号和en信号同时在接收时钟域拉高，aq_load 和 aq_en才能同时被传输，才能实现load的操作。因而控制信号的skew可以导致两个控制信号的传输不同步，今儿导致后续接收时钟域的控制信号不同步。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/7.png" alt="多个控制信号"></p>
-<h4 id="Solution-1：合并"><a href="#Solution-1：合并" class="headerlink" title="Solution 1：合并"></a>Solution 1：合并</h4><p>将两个控制信号合并成一个，控制信号之间就不存在同步问题。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/8.png" alt="合并"></p>
-<h4 id="Problem-2-多个控制信号之间存在时钟相位差"><a href="#Problem-2-多个控制信号之间存在时钟相位差" class="headerlink" title="Problem 2: 多个控制信号之间存在时钟相位差"></a>Problem 2: 多个控制信号之间存在时钟相位差</h4><p>如果两个控制信号本身存在一定的时钟相位差，以满足一些逻辑或者数据传输的时序要求，那么在传输过程中（或者说在接收时钟域中），可能控制信号未被采集到。因而导致数据通路出问题</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/9.png" alt="时钟相位差"></p>
-<h4 id="Solution-2：在接受域内产生控制信号"><a href="#Solution-2：在接受域内产生控制信号" class="headerlink" title="Solution 2：在接受域内产生控制信号"></a>Solution 2：在接受域内产生控制信号</h4><p>改进方法：只传输一个信号，另一个信号在同步时钟域中产生。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/10.png" alt="接受域产生控制信号"></p>
-<h3 id="3-2-数据信号多比特的同步"><a href="#3-2-数据信号多比特的同步" class="headerlink" title="3.2 数据信号多比特的同步"></a>3.2 数据信号多比特的同步</h3><p>数据多位数据的传输对位间偏移敏感。下面例子展示了编码信号传播到接收时钟域，若偏移存在，可能导致接受时钟域产生完全错误的结果。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/11.png" alt="接受域产生控制信号"></p>
-<p>解决数据同步方法主要有两种 </p>
-<ol>
-<li>Multi-cycle path formulation 多周期路径规划    </li>
-<li>FIFO</li>
-</ol>
-]]></content>
-      <categories>
-        <category>VLSI</category>
-        <category>CDC</category>
-      </categories>
-      <tags>
-        <tag>VLSI</tag>
-        <tag>CDC</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Clock Domain Crossing (CDC) Part 1</title>
     <url>/2021/05/29/CDC/CDC_1/</url>
     <content><![CDATA[<p>Reference：</p>
@@ -588,6 +531,63 @@
 <p>在这个过程，需要保证的这个保持时间，否则会产生synchronization failure。 这个时间与输入信号的频率和同步FF的频率有关。这个时间为MTBF。</p>
 <p>对于大多数同步应用，两级FF同步器已经足够移除所有亚稳态。</p>
 <h4 id="2-3-Three-flip-flop-synchronizer"><a href="#2-3-Three-flip-flop-synchronizer" class="headerlink" title="2.3 Three flip-flop synchronizer"></a>2.3 Three flip-flop synchronizer</h4><p>对于一些极其高速的应用，MTBF在两级同步器之间太短。因此可以添加第三级FF以增加MTBF到一个满意的时间范围。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/5.png" alt="三级同步器"></p>
+]]></content>
+      <categories>
+        <category>VLSI</category>
+        <category>CDC</category>
+      </categories>
+      <tags>
+        <tag>VLSI</tag>
+        <tag>CDC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clock Domain Crossing (CDC) Part 2</title>
+    <url>/2021/05/29/CDC/CDC_2/</url>
+    <content><![CDATA[<p>Reference：<br>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》    -    Clifford E. Cummings</p>
+<h3 id="2-4-Synchronizing-signals-requirements"><a href="#2-4-Synchronizing-signals-requirements" class="headerlink" title="2.4 Synchronizing signals requirements:"></a>2.4 Synchronizing signals requirements:</h3><h4 id="2-4-1-Requirment-for-sending-signals"><a href="#2-4-1-Requirment-for-sending-signals" class="headerlink" title="2.4.1 Requirment for sending signals"></a>2.4.1 Requirment for sending signals</h4><p>在发射时钟域&amp;接受时钟域，发送信号需要被registered。</p>
+<p>对同步过程很容易误解成，只需要接受时钟域同步即可。但对于发送时钟域，异步信号是需要提前存在register中，即发送域寄存器和接受域寄存器之间不再有组合逻辑电路。若有组合逻辑电路：接受域的输入信号adat会由于组合逻辑电路不同输入变化带来不同情况的延迟变化，逻辑值不同等情况，这增加潜在毛刺（或是震荡信号）的可能性，也增加了亚稳态的可能。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/1.png" alt="without registered"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/2.png" alt="with registered"></p>
+<h4 id="2-4-2-requirement-for-reliability-of-signals"><a href="#2-4-2-requirement-for-reliability-of-signals" class="headerlink" title="2.4.2 requirement for reliability of signals"></a>2.4.2 requirement for reliability of signals</h4><p>对信号的可靠性的要求。用更快的时钟采样慢信号（通常是1.5倍以上相较于慢信号），满信号会被采样一次或者多次，通常来说同步慢信号不会产生很多问题。但慢时钟采快信号会带来问题。</p>
+<p>The “three edge” requirement：”input data values must be stable for three destination clock edges” 输入数据值需要在三个目标时钟沿保持稳定，即1.5个时钟周期。</p>
+<p>Problem A: Passing a fast CDC pulse</p>
+<p>当CDC信号只有一个快时钟周期的宽度，那么CDC信号可能在两个慢时钟的上升沿之间变化，因而接受时钟域并没有采集到信号变化。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/3.png" alt="传递一个高速CDC脉冲"></p>
+<p>Problem B: Sampling a long CDC pulse - but not long enough</p>
+<p>当CDC信号的宽度大概略大于一个慢时钟周期的宽度，那么CDC信号在绝大多数情况下能顺利通过。但是在下图非常罕见的情况，adat恰好横跨一个慢周期的上升沿，那么有可能违反第一个寄存器的setup time要求和第二个寄存器的hold time要求，输出为亚稳态。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/4.png" alt="采样一个不够长的CDC脉冲"></p>
+<p>当不允许采样过程中丢失采样点，通常来说有两种方法来解决：</p>
+<ol>
+<li>开环控制：用同步器对信号进行采样：</li>
+</ol>
+<p>保证CDC信号大概在采样时钟周期地1.5倍左右，如此信号在一个周期中会被至少采样一次。</p>
+<p>优点：开环地控制信号长度，最快的发送方式，不需要发送信号返回的acknowlegment。</p>
+<p>缺点：当参数变化时候，工程师可能很难在发现这个错误。这个问题可以通过SV的断言来判断信号是否满足了3edge要求。<br>This problem can be minimized by adding a SystemVerilog Assertion to the model to detect if the input pulse ever fails to exceed the “three edges” design requirement.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/5.png" alt="开环控制"></p>
+<p>闭环控制：信号穿过CDC后返回一个acknowledgement反馈信号，自动延长快时钟域的信号<br>在发射时钟域添加一个使能信号。当接受时钟域接受到信号后，通过一个发射时钟域的两级同步器产生acknowledgement信号，数据再从adat进入，开始传入下一个数据。</p>
+<p>缺点：整个过程延迟过长（两级同步器）</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/6.png" alt="闭环控制"></p>
+<h2 id="3-Multiple-signals-between-clock-domains"><a href="#3-Multiple-signals-between-clock-domains" class="headerlink" title="3. Multiple signals between clock domains"></a>3. Multiple signals between clock domains</h2><p>当传输多位信号时，简单的同步器并不能保证数据的安全传输。多位信号的传输的问题在于信号在同步过程中，数据变化的偏移（skew）也可能被不同上升沿采样到。</p>
+<p>为了应对多位CDC偏移采样的情况，主要有以下几种解决方案：</p>
+<ul>
+<li>尽可能让多位的CDC信号合成单bitCDC信号</li>
+<li>Multi-cycle path formulation. 使用同步信号来保证CDC信号能通过</li>
+<li>使用Gray code</li>
+</ul>
+<h3 id="3-1-控制信号多比特的同步"><a href="#3-1-控制信号多比特的同步" class="headerlink" title="3.1 控制信号多比特的同步"></a>3.1 控制信号多比特的同步</h3><h4 id="Problem-1：多个控制信号之间传输偏移"><a href="#Problem-1：多个控制信号之间传输偏移" class="headerlink" title="Problem 1：多个控制信号之间传输偏移"></a>Problem 1：多个控制信号之间传输偏移</h4><p>例如下面例子，当load信号和en信号同时在接收时钟域拉高，aq_load 和 aq_en才能同时被传输，才能实现load的操作。因而控制信号的skew可以导致两个控制信号的传输不同步，今儿导致后续接收时钟域的控制信号不同步。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/7.png" alt="多个控制信号"></p>
+<h4 id="Solution-1：合并"><a href="#Solution-1：合并" class="headerlink" title="Solution 1：合并"></a>Solution 1：合并</h4><p>将两个控制信号合并成一个，控制信号之间就不存在同步问题。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/8.png" alt="合并"></p>
+<h4 id="Problem-2-多个控制信号之间存在时钟相位差"><a href="#Problem-2-多个控制信号之间存在时钟相位差" class="headerlink" title="Problem 2: 多个控制信号之间存在时钟相位差"></a>Problem 2: 多个控制信号之间存在时钟相位差</h4><p>如果两个控制信号本身存在一定的时钟相位差，以满足一些逻辑或者数据传输的时序要求，那么在传输过程中（或者说在接收时钟域中），可能控制信号未被采集到。因而导致数据通路出问题</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/9.png" alt="时钟相位差"></p>
+<h4 id="Solution-2：在接受域内产生控制信号"><a href="#Solution-2：在接受域内产生控制信号" class="headerlink" title="Solution 2：在接受域内产生控制信号"></a>Solution 2：在接受域内产生控制信号</h4><p>改进方法：只传输一个信号，另一个信号在同步时钟域中产生。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/10.png" alt="接受域产生控制信号"></p>
+<h3 id="3-2-数据信号多比特的同步"><a href="#3-2-数据信号多比特的同步" class="headerlink" title="3.2 数据信号多比特的同步"></a>3.2 数据信号多比特的同步</h3><p>数据多位数据的传输对位间偏移敏感。下面例子展示了编码信号传播到接收时钟域，若偏移存在，可能导致接受时钟域产生完全错误的结果。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_2/11.png" alt="接受域产生控制信号"></p>
+<p>解决数据同步方法主要有两种 </p>
+<ol>
+<li>Multi-cycle path formulation 多周期路径规划    </li>
+<li>FIFO</li>
+</ol>
 ]]></content>
       <categories>
         <category>VLSI</category>
