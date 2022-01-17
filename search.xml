@@ -131,6 +131,53 @@
       </tags>
   </entry>
   <entry>
+    <title>Microarchitecture Part 1</title>
+    <url>/2021/06/07/Computer_architecture/Microarchitecture%20Part%201/</url>
+    <content><![CDATA[<p>Reference：</p>
+<ol>
+<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
+<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
+</ol>
+<h3 id="1-架构状态和指令集"><a href="#1-架构状态和指令集" class="headerlink" title="1. 架构状态和指令集"></a>1. 架构状态和指令集</h3><p>一个计算机架构是由它的指令集(instruction set)和架构状态(architectural state：The architectural state is the part of the CPU which holds the state of a process. )。MIPS处理器的架构状态包含程序计数器和32个寄存器。指令集决定了微架构的硬件层面的复杂程度。</p>
+<h3 id="2-设计流程"><a href="#2-设计流程" class="headerlink" title="2. 设计流程"></a>2. 设计流程</h3><p>微架构可以分成两个相互作用的部分：数据通路(datapath)和控制通路(controlpath)。数据通路包括了内存，寄存器，ALU和分路选择器。控制通路则通过分路选择器（MUX）进行寄存器的enable控制，memory的读写以控制数据通路。</p>
+<p>设计的过程可以分成几个步骤：</p>
+<p>Step 1: 思考需要的硬件需要包含多少状态（多少级）存储元件。</p>
+<p>Step 2: 在两级状态单元之间插入组合逻辑电路以计算next state。</p>
+<p>Step 3: 通常会将架构的memory拆成两部分，一部分存储指令，另一部分存储数据。</p>
+<h4 id="2-1-Case-study：MIPS-Micropossessor"><a href="#2-1-Case-study：MIPS-Micropossessor" class="headerlink" title="2.1 Case study：MIPS Micropossessor"></a>2.1 Case study：MIPS Micropossessor</h4><p>存储元件：存储元件通常还需要reset信号。</p>
+<p>Note：1. instruction mem模块无clk，说明只要地址A改变，RD就会在一个短暂的组合逻辑delay后读出新的指令。2. 其余三个存储元件都是在clk的节拍下进行数据刷新，从时序的角度（寄存器的要求），地址和数据需要在时钟上升沿来之前保持一个setup time，在时钟上升沿来之后保持一个holding time。</p>
+<p>The state of the system is changed only at the clock edge. The address, data, and write enable must setup sometime before the clock edge and must remain stable until a hold time after the clock edge.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/1.png" alt="components"></p>
+<h3 id="3-MIPS-架构"><a href="#3-MIPS-架构" class="headerlink" title="3  MIPS 架构"></a>3  MIPS 架构</h3><p>我们接下来会讨论三种MIPS架构：单周期，多周期和流水线的架构。这三种结构的不同点在于状态存储单元的连接和非架构状态的数量不相同。</p>
+<ol>
+<li><p>单周期微处理器：处理整一个整理在一个周期。</p>
+<p> 特点：控制单元简单，不需要任何的非架构状态。但微处理器的周期时间被最慢的指令所限制。</p>
+</li>
+<li><p>多周期微处理器：处理一条指令用一系列短周期。简单的指令相比于复杂的指令执行更少的周期。多周期的微处理器通过重复使用昂贵的硬件资源如加法器和内存，以减少硬件cost。（adder可能在多个周期以不同用途被调用，多周期微处理器通过添加几个非架构寄存器来保存中间结果）。</p>
+<p> 多周期微处理器一次指处理一个指令，一个指令会花费多个时钟周期。</p>
+</li>
+<li><p>流水线微处理器：将流水线应用在单周期微处理器架构上。</p>
+<p> 特点：可以同时处理多条指令，极大提高系统的吞吐量。流水线则对控制通路的要求更高，需要昂贵的额外的MUX和非架构流水线寄存器。</p>
+</li>
+</ol>
+<h3 id="4-Perfomance-analysis"><a href="#4-Perfomance-analysis" class="headerlink" title="4 Perfomance analysis"></a>4 Perfomance analysis</h3><p>微处理器的性能用执行特点程序（或程序集）所以花费时间而定。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/2.png" alt="execution time"></p>
+<ol>
+<li>instructions: 取决与处理器架构和执行的程序的内容。某些架构下有复杂的指令因而在每个指令可以做更多的事情，但是有种复杂的处理器架构意味着在硬件上更加复杂，往往执行得更慢。（在此处默认执行同一套程序）</li>
+<li>CPI：不同的微处理器架构有不同CPIs。CPI与处理器架构，存储器架构相关。存储器的架构会对CPI产生显著的影响。</li>
+<li>Tc：处理器能运行的最高频率取决于关键路径上的delay和寄存器时序要求。事实上，由于工艺节点的进步，尽管微架构和逻辑不变处理器也能运行在更高的频率上。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Computer architecture</category>
+        <category>Microarchitecture</category>
+      </categories>
+      <tags>
+        <tag>Computer architecture</tag>
+        <tag>Microarchitecture</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Microarchitecture Part 2</title>
     <url>/2021/06/07/Computer_architecture/Microarchitecture%20Part%202/</url>
     <content><![CDATA[<p>Reference：</p>
@@ -206,53 +253,6 @@
 </ol>
 <h2 id="6-Multicycle-Processor-多周期微处理器"><a href="#6-Multicycle-Processor-多周期微处理器" class="headerlink" title="6. Multicycle Processor 多周期微处理器"></a>6. Multicycle Processor 多周期微处理器</h2><p>多周期处理解决上述的问题通过把指令拆成几个步骤。不同的指令有不同数量的步骤，复杂的指令步骤更多，因而需要更多时间完成。</p>
 <p>The multicycle processor addresses these weaknesses by breaking an instruction into multiple shorter steps. Different instructions use different numbers of steps, so simpler instructions can complete faster than more complex ones.</p>
-]]></content>
-      <categories>
-        <category>Computer architecture</category>
-        <category>Microarchitecture</category>
-      </categories>
-      <tags>
-        <tag>Computer architecture</tag>
-        <tag>Microarchitecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Microarchitecture Part 1</title>
-    <url>/2021/06/07/Computer_architecture/Microarchitecture%20Part%201/</url>
-    <content><![CDATA[<p>Reference：</p>
-<ol>
-<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
-<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
-</ol>
-<h3 id="1-架构状态和指令集"><a href="#1-架构状态和指令集" class="headerlink" title="1. 架构状态和指令集"></a>1. 架构状态和指令集</h3><p>一个计算机架构是由它的指令集(instruction set)和架构状态(architectural state：The architectural state is the part of the CPU which holds the state of a process. )。MIPS处理器的架构状态包含程序计数器和32个寄存器。指令集决定了微架构的硬件层面的复杂程度。</p>
-<h3 id="2-设计流程"><a href="#2-设计流程" class="headerlink" title="2. 设计流程"></a>2. 设计流程</h3><p>微架构可以分成两个相互作用的部分：数据通路(datapath)和控制通路(controlpath)。数据通路包括了内存，寄存器，ALU和分路选择器。控制通路则通过分路选择器（MUX）进行寄存器的enable控制，memory的读写以控制数据通路。</p>
-<p>设计的过程可以分成几个步骤：</p>
-<p>Step 1: 思考需要的硬件需要包含多少状态（多少级）存储元件。</p>
-<p>Step 2: 在两级状态单元之间插入组合逻辑电路以计算next state。</p>
-<p>Step 3: 通常会将架构的memory拆成两部分，一部分存储指令，另一部分存储数据。</p>
-<h4 id="2-1-Case-study：MIPS-Micropossessor"><a href="#2-1-Case-study：MIPS-Micropossessor" class="headerlink" title="2.1 Case study：MIPS Micropossessor"></a>2.1 Case study：MIPS Micropossessor</h4><p>存储元件：存储元件通常还需要reset信号。</p>
-<p>Note：1. instruction mem模块无clk，说明只要地址A改变，RD就会在一个短暂的组合逻辑delay后读出新的指令。2. 其余三个存储元件都是在clk的节拍下进行数据刷新，从时序的角度（寄存器的要求），地址和数据需要在时钟上升沿来之前保持一个setup time，在时钟上升沿来之后保持一个holding time。</p>
-<p>The state of the system is changed only at the clock edge. The address, data, and write enable must setup sometime before the clock edge and must remain stable until a hold time after the clock edge.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/1.png" alt="components"></p>
-<h3 id="3-MIPS-架构"><a href="#3-MIPS-架构" class="headerlink" title="3  MIPS 架构"></a>3  MIPS 架构</h3><p>我们接下来会讨论三种MIPS架构：单周期，多周期和流水线的架构。这三种结构的不同点在于状态存储单元的连接和非架构状态的数量不相同。</p>
-<ol>
-<li><p>单周期微处理器：处理整一个整理在一个周期。</p>
-<p> 特点：控制单元简单，不需要任何的非架构状态。但微处理器的周期时间被最慢的指令所限制。</p>
-</li>
-<li><p>多周期微处理器：处理一条指令用一系列短周期。简单的指令相比于复杂的指令执行更少的周期。多周期的微处理器通过重复使用昂贵的硬件资源如加法器和内存，以减少硬件cost。（adder可能在多个周期以不同用途被调用，多周期微处理器通过添加几个非架构寄存器来保存中间结果）。</p>
-<p> 多周期微处理器一次指处理一个指令，一个指令会花费多个时钟周期。</p>
-</li>
-<li><p>流水线微处理器：将流水线应用在单周期微处理器架构上。</p>
-<p> 特点：可以同时处理多条指令，极大提高系统的吞吐量。流水线则对控制通路的要求更高，需要昂贵的额外的MUX和非架构流水线寄存器。</p>
-</li>
-</ol>
-<h3 id="4-Perfomance-analysis"><a href="#4-Perfomance-analysis" class="headerlink" title="4 Perfomance analysis"></a>4 Perfomance analysis</h3><p>微处理器的性能用执行特点程序（或程序集）所以花费时间而定。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/2.png" alt="execution time"></p>
-<ol>
-<li>instructions: 取决与处理器架构和执行的程序的内容。某些架构下有复杂的指令因而在每个指令可以做更多的事情，但是有种复杂的处理器架构意味着在硬件上更加复杂，往往执行得更慢。（在此处默认执行同一套程序）</li>
-<li>CPI：不同的微处理器架构有不同CPIs。CPI与处理器架构，存储器架构相关。存储器的架构会对CPI产生显著的影响。</li>
-<li>Tc：处理器能运行的最高频率取决于关键路径上的delay和寄存器时序要求。事实上，由于工艺节点的进步，尽管微架构和逻辑不变处理器也能运行在更高的频率上。</li>
-</ol>
 ]]></content>
       <categories>
         <category>Computer architecture</category>
