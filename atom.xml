@@ -340,38 +340,6 @@
   </entry>
   
   <entry>
-    <title>SV_1.1 Data Type</title>
-    <link href="https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/"/>
-    <id>https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/</id>
-    <published>2021-04-01T16:00:00.000Z</published>
-    <updated>2021-05-29T09:24:52.395Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Source from :&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;《芯片验证漫游指南》- Page 108-111&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;《System Verilog验证》- Chapter 2&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="SV" scheme="https://xulixing.github.io/categories/SV/"/>
-    
-    
-    <category term="SV" scheme="https://xulixing.github.io/tags/SV/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Verilog Ch1&amp;2</title>
     <link href="https://xulixing.github.io/2021/04/02/verilog/verilog-ch1-2/"/>
     <id>https://xulixing.github.io/2021/04/02/verilog/verilog-ch1-2/</id>
@@ -419,6 +387,38 @@
     
     
     <category term="verilog" scheme="https://xulixing.github.io/tags/verilog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SV_1.1 Data Type</title>
+    <link href="https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/"/>
+    <id>https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/</id>
+    <published>2021-04-01T16:00:00.000Z</published>
+    <updated>2021-05-29T09:24:52.395Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Source from :&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;《芯片验证漫游指南》- Page 108-111&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;《System Verilog验证》- Chapter 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="SV" scheme="https://xulixing.github.io/categories/SV/"/>
+    
+    
+    <category term="SV" scheme="https://xulixing.github.io/tags/SV/"/>
     
   </entry>
   
