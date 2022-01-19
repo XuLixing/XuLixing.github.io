@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>X‘s world</title>
   
-  <subtitle>Tracking Every Possible Serendipity</subtitle>
+  <subtitle>Never Settle</subtitle>
   <link href="https://xulixing.github.io/atom.xml" rel="self"/>
   
   <link href="https://xulixing.github.io/"/>
@@ -74,11 +74,11 @@
   </entry>
   
   <entry>
-    <title>Microarchitecture Part 2</title>
-    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/"/>
-    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/</id>
+    <title>Microarchitecture Part 3</title>
+    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/"/>
+    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/</id>
     <published>2021-06-06T16:00:00.000Z</published>
-    <updated>2021-06-07T10:17:50.074Z</updated>
+    <updated>2021-06-07T10:29:05.000Z</updated>
     
     
       
@@ -106,11 +106,11 @@
   </entry>
   
   <entry>
-    <title>Microarchitecture Part 3</title>
-    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/"/>
-    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/</id>
+    <title>Microarchitecture Part 2</title>
+    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/"/>
+    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/</id>
     <published>2021-06-06T16:00:00.000Z</published>
-    <updated>2021-06-07T10:29:05.000Z</updated>
+    <updated>2021-06-07T10:17:50.074Z</updated>
     
     
       
@@ -340,6 +340,38 @@
   </entry>
   
   <entry>
+    <title>SV_1.1 Data Type</title>
+    <link href="https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/"/>
+    <id>https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/</id>
+    <published>2021-04-01T16:00:00.000Z</published>
+    <updated>2021-05-29T09:24:52.395Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Source from :&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;《芯片验证漫游指南》- Page 108-111&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;《System Verilog验证》- Chapter 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="SV" scheme="https://xulixing.github.io/categories/SV/"/>
+    
+    
+    <category term="SV" scheme="https://xulixing.github.io/tags/SV/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Verilog Ch1&amp;2</title>
     <link href="https://xulixing.github.io/2021/04/02/verilog/verilog-ch1-2/"/>
     <id>https://xulixing.github.io/2021/04/02/verilog/verilog-ch1-2/</id>
@@ -387,38 +419,6 @@
     
     
     <category term="verilog" scheme="https://xulixing.github.io/tags/verilog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SV_1.1 Data Type</title>
-    <link href="https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/"/>
-    <id>https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/</id>
-    <published>2021-04-01T16:00:00.000Z</published>
-    <updated>2021-05-29T09:24:52.395Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Source from :&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;《芯片验证漫游指南》- Page 108-111&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;《System Verilog验证》- Chapter 2&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="SV" scheme="https://xulixing.github.io/categories/SV/"/>
-    
-    
-    <category term="SV" scheme="https://xulixing.github.io/tags/SV/"/>
     
   </entry>
   
