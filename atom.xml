@@ -42,6 +42,65 @@
   </entry>
   
   <entry>
+    <title>Von Neumann Model &amp; ISA</title>
+    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/von-neumann-model-isa/"/>
+    <id>https://xulixing.github.io/2021/06/07/computer-architecture/von-neumann-model-isa/</id>
+    <published>2021-06-06T16:00:00.000Z</published>
+    <updated>2021-06-07T08:54:52.853Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Digital Design and Computer Architecture,&lt;/em&gt; by David Harris, Sarah Harris-chapter6</summary>
+        
+      
+    
+    
+    
+    <category term="Computer architecture" scheme="https://xulixing.github.io/categories/Computer-architecture/"/>
+    
+    
+    <category term="Computer architecture" scheme="https://xulixing.github.io/tags/Computer-architecture/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Microarchitecture Part 3</title>
+    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/"/>
+    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/</id>
+    <published>2021-06-06T16:00:00.000Z</published>
+    <updated>2021-06-07T10:29:05.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Digital Design and Computer Architecture,&lt;/em&gt; by David Harris, Sarah Harris&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Introduction to</summary>
+        
+      
+    
+    
+    
+    <category term="Computer architecture" scheme="https://xulixing.github.io/categories/Computer-architecture/"/>
+    
+    <category term="Microarchitecture" scheme="https://xulixing.github.io/categories/Computer-architecture/Microarchitecture/"/>
+    
+    
+    <category term="Computer architecture" scheme="https://xulixing.github.io/tags/Computer-architecture/"/>
+    
+    <category term="Microarchitecture" scheme="https://xulixing.github.io/tags/Microarchitecture/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Microarchitecture Part 1</title>
     <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-1/"/>
     <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-1/</id>
@@ -106,81 +165,19 @@
   </entry>
   
   <entry>
-    <title>Microarchitecture Part 3</title>
-    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/"/>
-    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/</id>
-    <published>2021-06-06T16:00:00.000Z</published>
-    <updated>2021-06-07T10:29:05.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;em&gt;Digital Design and Computer Architecture,&lt;/em&gt; by David Harris, Sarah Harris&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Introduction to</summary>
-        
-      
-    
-    
-    
-    <category term="Computer architecture" scheme="https://xulixing.github.io/categories/Computer-architecture/"/>
-    
-    <category term="Microarchitecture" scheme="https://xulixing.github.io/categories/Computer-architecture/Microarchitecture/"/>
-    
-    
-    <category term="Computer architecture" scheme="https://xulixing.github.io/tags/Computer-architecture/"/>
-    
-    <category term="Microarchitecture" scheme="https://xulixing.github.io/tags/Microarchitecture/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Von Neumann Model &amp; ISA</title>
-    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/von-neumann-model-isa/"/>
-    <id>https://xulixing.github.io/2021/06/07/computer-architecture/von-neumann-model-isa/</id>
-    <published>2021-06-06T16:00:00.000Z</published>
-    <updated>2021-06-07T08:54:52.853Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;em&gt;Digital Design and Computer Architecture,&lt;/em&gt; by David Harris, Sarah Harris-chapter6</summary>
-        
-      
-    
-    
-    
-    <category term="Computer architecture" scheme="https://xulixing.github.io/categories/Computer-architecture/"/>
-    
-    
-    <category term="Computer architecture" scheme="https://xulixing.github.io/tags/Computer-architecture/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 1</title>
-    <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-1/"/>
-    <id>https://xulixing.github.io/2021/05/29/cdc/cdc-1/</id>
+    <title>Clock Domain Crossing (CDC) Part 3</title>
+    <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-3/"/>
+    <id>https://xulixing.github.io/2021/05/29/cdc/cdc-3/</id>
     <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-05-30T06:51:46.662Z</updated>
+    <updated>2021-11-05T17:02:07.015Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;《Clock Domain</summary>
+    <summary type="html">&lt;p&gt;Check&lt;/p&gt;
+</summary>
         
       
     
@@ -227,19 +224,22 @@
   </entry>
   
   <entry>
-    <title>Clock Domain Crossing (CDC) Part 3</title>
-    <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-3/"/>
-    <id>https://xulixing.github.io/2021/05/29/cdc/cdc-3/</id>
+    <title>Clock Domain Crossing (CDC) Part 1</title>
+    <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-1/"/>
+    <id>https://xulixing.github.io/2021/05/29/cdc/cdc-1/</id>
     <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-11-05T17:02:07.015Z</updated>
+    <updated>2021-05-30T06:51:46.662Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Check&lt;/p&gt;
-</summary>
+    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;《Clock Domain</summary>
         
       
     
@@ -366,31 +366,6 @@
   </entry>
   
   <entry>
-    <title>Verilog Ch3</title>
-    <link href="https://xulixing.github.io/2021/04/02/verilog/verilog-ch3/"/>
-    <id>https://xulixing.github.io/2021/04/02/verilog/verilog-ch3/</id>
-    <published>2021-04-01T16:00:00.000Z</published>
-    <updated>2021-04-18T14:58:55.968Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;3-1-数据流建模&quot;&gt;&lt;a href=&quot;#3-1-数据流建模&quot; class=&quot;headerlink&quot; title=&quot;3.1 数据流建模&quot;&gt;&lt;/a&gt;3.1 数据流建模&lt;/h3&gt;&lt;h3 id=&quot;3-11-连续赋值语句&quot;&gt;&lt;a href=&quot;#3-11-连续赋值语句&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="verilog" scheme="https://xulixing.github.io/categories/verilog/"/>
-    
-    
-    <category term="verilog" scheme="https://xulixing.github.io/tags/verilog/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SV_1.1 Data Type</title>
     <link href="https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/"/>
     <id>https://xulixing.github.io/2021/04/02/system-verilog/sv-1.1-data-type/</id>
@@ -419,6 +394,31 @@
     
     
     <category term="SV" scheme="https://xulixing.github.io/tags/SV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Verilog Ch3</title>
+    <link href="https://xulixing.github.io/2021/04/02/verilog/verilog-ch3/"/>
+    <id>https://xulixing.github.io/2021/04/02/verilog/verilog-ch3/</id>
+    <published>2021-04-01T16:00:00.000Z</published>
+    <updated>2021-04-18T14:58:55.968Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;3-1-数据流建模&quot;&gt;&lt;a href=&quot;#3-1-数据流建模&quot; class=&quot;headerlink&quot; title=&quot;3.1 数据流建模&quot;&gt;&lt;/a&gt;3.1 数据流建模&lt;/h3&gt;&lt;h3 id=&quot;3-11-连续赋值语句&quot;&gt;&lt;a href=&quot;#3-11-连续赋值语句&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="verilog" scheme="https://xulixing.github.io/categories/verilog/"/>
+    
+    
+    <category term="verilog" scheme="https://xulixing.github.io/tags/verilog/"/>
     
   </entry>
   
