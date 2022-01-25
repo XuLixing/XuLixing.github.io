@@ -1,0 +1,1210 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="5. Memory Hierachy, X‘s world">
+    <meta name="description" content="Accumulation matters">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>5. Memory Hierachy | X‘s world</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="X‘s world" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">X‘s world</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>Medias</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Musics</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Movies</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Books</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>Galleries</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">X‘s world</div>
+        <div class="logo-desc">
+            
+            Accumulation matters
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			Medias
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/musics " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Musics</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/movies " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Movies</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/books " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Books</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>Galleries</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">5. Memory Hierachy</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Computer-architecture/">
+                                <span class="chip bg-color">Computer architecture</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Computer-architecture/" class="post-category">
+                                Computer architecture
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2021-11-07
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
+                    11 Min
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="5-1-Memory-Hierachiy-Overview"><a href="#5-1-Memory-Hierachiy-Overview" class="headerlink" title="5.1  Memory Hierachiy Overview"></a>5.1  Memory Hierachiy Overview</h1><h2 id="5-1-1-Memory-development"><a href="#5-1-1-Memory-development" class="headerlink" title="5.1.1 Memory development"></a>5.1.1 Memory development</h2><p>Memory的性能发展并没有跟上CPU的性能，在计算机运算（CPU和Memory协同）内存的访问时间即数据的搬运时间过长，制约了计算性能。处理器的性能的发展速度远超于内存（如DRAM）的发展速度，这里有电路设计优化的因素，也有工艺的因素。处理器如果需要快速的处理数据，无论是指令还是数据，存储系统都应该能够快速供给。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/1.png" alt="Memory Wall"></p>
+<p>一个很简单解决思路是：让memory系统层次化。靠近CPU的数据（即准备要用到的数据）使用访问速度快的存储类型如SRAM，稍远的则采用访问速度慢但容量大的DRAM。进一步，我们把计算机最常用的指令(如load，strore)和数据预存在更小的memory中，我们称其为cache 或高速缓存。存储在cache中的数据，可以被CPU快速访问。</p>
+<p>Note：cache中可以存储指令和数据，在之后的介绍中仅描述为data。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/2.png" alt="Memory Hierachy"></p>
+<h2 id="5-1-2-Cache-访问逻辑"><a href="#5-1-2-Cache-访问逻辑" class="headerlink" title="5.1.2 Cache 访问逻辑"></a>5.1.2 Cache 访问逻辑</h2><p>当CPU需要访问内存地址，即读对应的数据时，高速缓存的操作如下：</p>
+<ol>
+<li>先检查cache中有无匹配的地址: cache line/entry </li>
+<li>假如内存的地址可以在cache里找到，cache只需要将数据传回，这个过程为Cache Hit</li>
+<li>假如内存地址不在cache中找到，cache就会分配一个cache line给这个地址，处理器需要访问main memory，处理器往往需要停下来（Microprocessor stall）等到data从main memory中传回，这个过程为Cache Miss。以此类推，当Memory hierarchy更复杂时，也会有Main Memory Hit/ Miss。</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/3.png" alt="cache访问逻辑"></p>
+<p>当CPU往内存写数据时，即写入对应数据时，高速缓存的操作如下：</p>
+<ol>
+<li>会先检查cache中有无这个地址，有则写入数据到对应的cache位置；</li>
+<li>如果没有，则按照某种（policy）处理，这点在后边章节5.3.3细述。</li>
+</ol>
+<h1 id="5-2-Memory-System-Performance-Analysis"><a href="#5-2-Memory-System-Performance-Analysis" class="headerlink" title="5.2 Memory System Performance Analysis"></a>5.2 Memory System Performance Analysis</h1><p>Miss Rate/ Hit Rate：重要的指标来衡量存储层次的性能。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/4.png" alt="Hit&amp;Miss rate"></p>
+<p>Average memory access time AMAT:平均内存访问时间：</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/5.png" alt="Average memory access time AMAT"></p>
+<h1 id="5-3-Cache"><a href="#5-3-Cache" class="headerlink" title="5.3 Cache"></a>5.3 Cache</h1><p>紧接着根据以下三个问题来讨论cache的设计。</p>
+<p>（1）具体什么样的data需要存放在cache？</p>
+<p>（2）data如何被处理器发现？</p>
+<p>（3）cache中的什么数据被新的数据取代，当cache写满时。</p>
+<h2 id="5-3-1-具体什么样的data需要存放在cache？"><a href="#5-3-1-具体什么样的data需要存放在cache？" class="headerlink" title="5.3.1 具体什么样的data需要存放在cache？"></a>5.3.1 具体什么样的data需要存放在cache？</h2><p>Cache是无法聪明到可以预测接下来处理器会用到什么数据，所以cache只能去猜什么样的数据可能被需要，<strong>基于过去memory access pattern</strong>。特别地，cache使用的时间局域性（Temporal locality）和空间局域性（Spatial locality）以获得非常的低的miss rate。</p>
+<h3 id="5-3-1-1-访存的局域特性"><a href="#5-3-1-1-访存的局域特性" class="headerlink" title="5.3.1.1 访存的局域特性"></a>5.3.1.1 访存的局域特性</h3><p>大多数程序并不会在所有时刻访问整个存储空间，访存位置出现局域性特点。</p>
+<p><strong>A. 时间局域性 Temporal locality</strong> 指的是处理器很可能马上访问某一个数据，如果某一个数据被访问。因此当处理器从Main memory搬运特定数据到cache中，这个特定数据紧接着常用的数据也被搬运到cache中。</p>
+<p>eg. 进入一个for循环，for内的数据比如i++，数据1和指令”+“会被反复用到。</p>
+<p><strong>B. 空间局域性 Spatial locality</strong> 指的是处理器访问一个main memory的数据之后，那个特定数据所在memory位置的周围的数据很有可能被访问。因而附近的数据也会被一起搬运进入cache中。</p>
+<p>eg. 比如矩阵乘法，比如图像边缘提取，附近的element会被一起计算。 </p>
+<h3 id="5-3-1-2-cache存储的基本单位：Block-Cache-line-Cache-entry"><a href="#5-3-1-2-cache存储的基本单位：Block-Cache-line-Cache-entry" class="headerlink" title="5.3.1.2 cache存储的基本单位：Block/Cache line/Cache entry"></a>5.3.1.2 cache存储的基本单位：Block/Cache line/Cache entry</h3><p>通常处理器只会需求一个指令（对于MIPS系统则是一个word，32bit），但是cache的一个存储单位Block可以容纳不止一个word。因而当cache取特定指令（word）时候，往往连带其他指令（word）一起取回，存在block中。</p>
+<p>总结以下，cache通常有以下几个parameter去描述：</p>
+<ol>
+<li>容量Capacity C：cache中能存有words的数量。</li>
+<li>set（entry）S：set的数量。</li>
+<li>block的大小 b：block size，number of words it contains</li>
+<li>block的数量 B：number of blocks</li>
+<li>关联度 N：degree of associativity</li>
+</ol>
+<h2 id="5-3-2-Data如何被处理器发现？"><a href="#5-3-2-Data如何被处理器发现？" class="headerlink" title="5.3.2 Data如何被处理器发现？"></a>5.3.2 Data如何被处理器发现？</h2><p>简单介绍一个cache的物理结构：一个cache分布在S个set中，（set可以粗略理解为行row），每一个set中容纳了一个或者多个block，每一个block容纳word的数量则取决于block size，b。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/6.png" alt="Mapping"></p>
+<p>需要注意的是，当我们需要从Main memory取数据放入cache中时，cache的地址与Main memory地址有一种对应的位置，称为mapping。</p>
+<p>特别地，每一个Main memory的地址仅仅对应到一个cache set地址。当一个cache set中含有多个block，则Main memory中数据可以进入指定set中的任意一个block中。按照一个cache set中的block 的数量，可以把cache分为几类。</p>
+<ol>
+<li>Directed mapped cache:<br>每一个cache set只含有一个block，因此cache set的数量S=B。一个Main memory的地址对应到唯一的cache set中唯一的block中，没有其他block可进入。</li>
+<li>N-way set associative cache:<br>每一个cache set含有N个block，因此cache set的数量 S=B/N。一个Main memory 的地址对应到唯一的cache set，但是data可以进入特定set N block中任意一个block中。</li>
+<li>A fully associative cache:<br>只有一个set，S=1，N=B。数据可以进入一个set，B个block中的任意一个。</li>
+</ol>
+<p>下面按照MIPS的memory系统为例子介绍cache三种架构。MIPS是一个32位系统，地址32位且byte-addressable，每一个地址包含4个byte。下面我们以cache capacity = C =8 words 作为例子讨论。</p>
+<h3 id="5-3-2-1-Direct-mapped-cache"><a href="#5-3-2-1-Direct-mapped-cache" class="headerlink" title="5.3.2.1 Direct mapped cache"></a>5.3.2.1 Direct mapped cache</h3><p>首先需要知道direct mapped cache的mapping，左边为main memory 的地址，右边为cache的结构。右边cache的结构为direct mapped cache，一行有一个block，一个block存一个word。左边Main memory每个address存一个byte，0x0-0x3位置存在Set0，0x4-0x7位置存在Set1，以此类推，直到0x20-0x23位置又存回Set0中，以此循环。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/7.png" alt="Mapping"></p>
+<p>回到5.3.2节我们需要讨论的东西，如何从cache address找到Main memory的数据？这就需要知道Main memory的地址如何对应到cache，这与memory的地址相关。对于地址如0xFFFFFFE4，32位可以分为byte offset，index（set bit），tag bit等。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/8.png" alt="Memory Adress 组成"></p>
+<p>Byte offset：两位表示选中cache line的4个byte中选1个byte；</p>
+<p>Index/Set offset：表示需要选中cache set的地址/行数；</p>
+<p>Tag bit：剩下的bits在offset和set bit数量被决定，tag bit用来区分memory&amp;cache的mapping。</p>
+<p>tag bit的内容也存在cache中。cache中可能还存有V（valid）和D（Dirty）bit。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/9.png" alt="Cache line 组成"></p>
+<p>上图则表明了mapping的细节，set bit选 cache set，tag bit比较，valid有效时，生成hit信号。</p>
+<p>Valid bit：cache set用这个valid bit表明这个set保存的data是否是有效的数据。valid=1，内容是有效的；valid=0，内容是无效的；当两个最近需要访问的地址map到了同一个cache block，这就是一个conflict发生了，所以最近的地址会驱逐前一个地址。</p>
+<p>总结这种directed mapping的方式：</p>
+<p>优点：设计简单，造价低，搜索速度快（几乎不用搜索） </p>
+<p>缺点：因为序号index的共享度高，hit rate低。</p>
+<h3 id="5-3-2-2-Multi-way-set-associative-cache"><a href="#5-3-2-2-Multi-way-set-associative-cache" class="headerlink" title="5.3.2.2 Multi-way set associative cache"></a>5.3.2.2 Multi-way set associative cache</h3><p>N-way set associative cache通过在一个set中提供N blocks，可以显著减少数据的conflict。N就被称为degree of associativity 相关度。C=8 word，N=2 way，S=4 set。对比上面的cache结构，log2(4)=2，则需要2个而不是3个select bit。tag bit则是28 bit而不是27bit。mapping的外围电路则是用到两个比较器，两个valid信号。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/10.png" alt="Multi-way set associative cache"></p>
+<p>这类Set associative cache generlly有更低的miss rate相比于direct mapped cache（在相同的capacity的基础上）因为他们有更少的conflicts。但是这类set associativity cache通常会更慢和某种程度上更贵因为需要在output stage建立multiplexer和额外的比较器。</p>
+<p>还值得注意的是：Multi-way的cache结构中，每一个cache set会有多组tag和valid bit。因此当N数量增加时，cache占用的总存储面积是上升的（容量C一定情况下）。</p>
+<p>还有一个重要的事情是，在N-way已经满了而要写入数据时，哪一个数据需要被取代。这点将在5.3.3节讨论。Set associative cache常常被用作商业用途。</p>
+<h3 id="5-3-2-3-Fully-associative-cache"><a href="#5-3-2-3-Fully-associative-cache" class="headerlink" title="5.3.2.3 Fully associative cache"></a>5.3.2.3 Fully associative cache</h3><p>一个Fully associative cache涵盖一个single set，但是有B个ways，B是block数量。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/11.png" alt="Fully associative cache"></p>
+<p>这种cache类型相比于上述两种类型，有着最小的conflict misses rate（当cache容量一定时）缺点也明显，他需要极其多的硬件资源，such as tag bit comparators and mulitiplexers。</p>
+<h3 id="5-3-2-4-Consideration-Block-size，b"><a href="#5-3-2-4-Consideration-Block-size，b" class="headerlink" title="5.3.2.4 Consideration: Block size，b"></a>5.3.2.4 Consideration: Block size，b</h3><p>我们再考虑一个重要的参数，block size，一个block中可以容纳超过一个word，超过一个word长度，因此可以充分利用到时间局域性和空间局域性。在一个word被取入cache block时，相邻的word也被一起存入cache block。<strong>但对于miss rate来说，增加block size的方法并不一定能够一定减少miss rate。</strong>这是因为当cache 容量一定的情况下，增加block size意味着block set的数量更小，单个block set map到的memory地址数量更多，miss rate还可能增加。</p>
+<p>额外的，这增加了一个cache block的写入时间，因为写入的word数量增加。因此一旦发生了miss，从main memory进行搬运时，miss penalty会非常大。若想要降低miss penality则需要进一步层次化memory，如使用多级缓存结构。</p>
+<p>结构上需要添加，block offset进行数据的选择。</p>
+<p>现阶段，商用的cache架构还是会采用大的block size。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/12.png" alt="Block size 的影响"></p>
+<p>总结一下三种cache type：</p>
+<p>Increasing the associativity, N, usually reduces the miss rate caused by conflicts. But higher associativity requires more tag comparators. Increasing the block size, b, takes advantage of spatial locality to reduce the miss rate. However, it decreases the number of sets in a fixed sized cache and therefore could lead to more conflicts. It also increases the miss penalty.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/13.png" alt="三种cache类型的总结"></p>
+<h2 id="5-3-3-Cache中的什么数据被新的数据取代"><a href="#5-3-3-Cache中的什么数据被新的数据取代" class="headerlink" title="5.3.3 Cache中的什么数据被新的数据取代?"></a>5.3.3 Cache中的什么数据被新的数据取代?</h2><p>首先引入一个概念：高速缓存的缺失，它指的是所访问的内存地址还没有预取到cache中。当发生缺失时候，则需要讲内存的数据取出放入cache中，当cache中有数据时，就需要进行替换。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Memory%20Hierachy/14.png" alt="三种cache类型的总结"></p>
+<p>数据的替换策略与映射方式相关：</p>
+<ol>
+<li>对于direct mapped cache每一个地址对应到唯一block set，所以这个block中内容就是victim；</li>
+<li>对于N-way set associative cache，如果set is full，则需要按照一定的规则来驱逐（evit）特定的block，被替换的block成为victim。</li>
+<li>对于full associative cache，如果整个set都满了，就需要替换。</li>
+</ol>
+<p>以N-way set associative cache为例，替换策略有：</p>
+<ol>
+<li>轮换策略：先入先出，将一组各路乱换，算法简单，全局利用效率低。</li>
+<li>LRU（Least recentyly used）policy：对各路进行位置进行排序，最常用的放到队列底；最不常用到的放到队列顶被替换。</li>
+<li>随机策略：最容易实现。</li>
+</ol>
+<p>数据的替换策略与映射方式相关：</p>
+<ol>
+<li>对于direct mapped cache每一个地址对应到唯一block set，所以这个block中内容就是victim；</li>
+<li>对于N-way set associative cache，如果set is full，则需要按照一定的规则来驱逐（evit）特定的block，被替换的block成为victim。</li>
+<li>对于full associative cache，如果整个set都满了，就需要替换。</li>
+</ol>
+<p>以N-way set associative cache为例，替换策略有：</p>
+<ol>
+<li>轮换策略：先入先出，将一组各路乱换，算法简单，全局利用效率低。</li>
+<li>LRU（Least recentyly used）policy：对各路进行位置进行排序，最常用的放到队列底；最不常用到的放到队列顶被替换。</li>
+<li>随机策略：最容易实现。</li>
+</ol>
+<h2 id="5-3-4-Write-Policy"><a href="#5-3-4-Write-Policy" class="headerlink" title="5.3.4 Write Policy"></a>5.3.4 Write Policy</h2>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">XuLixing</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xulixing.github.io/2021/11/07/computer-architecture/5.memory-hierachy/">https://xulixing.github.io/2021/11/07/computer-architecture/5.memory-hierachy/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">XuLixing</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Computer-architecture/">
+                                    <span class="chip bg-color">Computer architecture</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2021/11/07/computer-architecture/5.memory-hierachy/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="5. Memory Hierachy">
+                        
+                        <span class="card-title">5. Memory Hierachy</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Computer-architecture/" class="post-category">
+                                    Computer architecture
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Computer-architecture/">
+                        <span class="chip bg-color">Computer architecture</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/07/computer-architecture/von-neumann-model-isa/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Von Neumann Model &amp; ISA">
+                        
+                        <span class="card-title">Von Neumann Model &amp; ISA</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Computer-architecture/" class="post-category">
+                                    Computer architecture
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Computer-architecture/">
+                        <span class="chip bg-color">Computer architecture</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">XuLixing</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">17.2k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/XuLixing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:xxxliseong@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
