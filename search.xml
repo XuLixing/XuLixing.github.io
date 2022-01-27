@@ -131,40 +131,42 @@
       </tags>
   </entry>
   <entry>
-    <title>Microarchitecture Part 3</title>
-    <url>/2021/06/07/computer-architecture/microarchitecture-part-3/</url>
+    <title>Microarchitecture Part 1</title>
+    <url>/2021/06/07/computer-architecture/microarchitecture-part-1/</url>
     <content><![CDATA[<p>Reference：</p>
 <ol>
 <li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
 <li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
 </ol>
-<h2 id="7-Pipeline-Processor-流水线处理器"><a href="#7-Pipeline-Processor-流水线处理器" class="headerlink" title="7. Pipeline Processor 流水线处理器"></a>7. Pipeline Processor 流水线处理器</h2><p>流水线处理器可以通过分割单周期处理成五个部分。因此最高可以有五条指令一起执行。流水线可以有效地提高吞吐量。</p>
-<p>We design a pipelined processor by subdividing the single-cycle processor into five pipeline stages. Thus, five instructions can execute simultaneously, one in each stage.</p>
-<p>流水线从时间的角度充分利用了硬件资源。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/1.png" alt="流水线时间角度上硬件资源"></p>
-<h3 id="7-1-Datapath-数据通路"><a href="#7-1-Datapath-数据通路" class="headerlink" title="7.1 Datapath 数据通路"></a>7.1 Datapath 数据通路</h3><p>读写内存和寄存器组和使用ALU通常是处理的最大delay的部分。五级流水线的每一级都涵盖了一部分这些高延迟部分。具体得，我们可以分成取指IF，译码DE，运算EX，读写内存MEM，写回WB五个部分。</p>
-<p>Reading and writing the memory and register file and using the ALU typically constitute the biggest delays in the processor. We choose five pipeline stages so that each stage involves exactly one of these slow steps. Specifically, we call the five stages Fetch(IF), Decode(DE), Execute(EX), Memory(MEM), and Writeback(WB).</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/2.png" alt="错误5-stage"></p>
-<p>简单得增加几级reg在组合逻辑电路和读写存储单元之间会导致一些问题，上图便有一处错误！对于一些指令数据/地址需要提前到达，会有时序上的问题</p>
-<p>One of the subtle but critical issues in pipelining is that all signals associated with a particular instruction must advance through the pipeline in unison</p>
-<p>错误在于寄存器组的写逻辑上。寄存器在流水线中是在DE中读取数据，WB中回写数据。然而在回写的地址在DE准备好，而不是WB。</p>
-<p>The error is in the register file write logic, The register file is peculiar because it is read in the Decode stage and written in the Writeback stage. And the correct address is already covered by other instructions when it comes to writeback stage.</p>
-<p>这个错误可以简单通过下图修改，将正确的地址一起传递到WB再写回，因此这个地址和WB回写的数据是逻辑上同步的。</p>
-<p>The WriteReg signal is now pipelined along through the Memory and Writeback stages, so it remains in sync with the rest of the instruction. WriteRegW and ResultW are fed back together to the register file in the Writeback stage.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/3.png" alt="正确5-stage"></p>
-<p>事实上，流水线的设计关键难点在于处理hazards，处理指令执行的顺序。这个部分会在下面单独讨论。</p>
-<p>A central challenge in pipelined systems is handling hazards that occur when the results of one instruction are needed by a subsequent instruction before the former instruction has completed. This section would be discussed sepearately later.</p>
-<h3 id="7-2-Pipelined-Control-流水线控制"><a href="#7-2-Pipelined-Control-流水线控制" class="headerlink" title="7.2 Pipelined Control 流水线控制"></a>7.2 Pipelined Control 流水线控制</h3><p>通过取指后的opcode和funct译码控制存储的使能信号和MUX的选通信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/4.png" alt="正确5-stage"></p>
-<h3 id="7-3-Hazard"><a href="#7-3-Hazard" class="headerlink" title="7.3 Hazard"></a>7.3 Hazard</h3><p>在流水线系统中，多个指令在时间上同时被执行。当一条指令的的执行依赖于另一条指令完成的结果，则hazard发生。</p>
-<p>When one instruction is dependent on the results of another that has not yet completed, a hazard occurs.</p>
-<p>RAW(Read after write) hazard：下图表示hazard发生流水线写入寄存器组，如果接下来的两条指令读取寄存器时</p>
-<p>RAW(Read after write) hazard：The diagram shows that hazards may occur in this pipeline when an instruction writes a register and either of the two subsequent instructions read that register.<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/5.png" alt="hazard"></p>
-<p>通常来说如果遇到RAW hazard 最直白的解决方法就是流水线停下来等到hazard解决。仔细观察上述指令，我们可以发现：Add在EX时候在ALU已经完成了计算，在MEM级不需要任何操作。空等了一个周期才WB。可以通过提前向前传递ALU的结果来提前WB，减少流水线放慢的效率。</p>
-<p>On closer inspection, however, observe that the sum from the add instruction is computed by the ALU in cycle 3 and is not strictly needed by the and instruction until the ALU uses it in cycle 4. In principle, we should be able to forward the result from one instruction to the next to resolve the RAW hazard without slowing down the pipeline.</p>
-<p>Hazards 可以分成data hazard 和 control hazard。data hazard 发生在指令尝试读取一个寄存器，但该寄存器还未被写回时。control hazard 发生在当跳转指令还没决定下一条该跳转到那一条指令时候，取指已经发生。</p>
-<p>Hazards are classified as data hazards or control hazards. A data hazard occurs when an instruction tries to read a register that has not yet been written back by a previous instruction. A control hazard occurs when the decision of what instruction to fetch next has not been made by the time the fetch takes place.</p>
-<p>A    Data Hazard</p>
-<p>B)    Control Hazard</p>
-<p>C)    Branch Hazard</p>
+<h3 id="1-架构状态和指令集"><a href="#1-架构状态和指令集" class="headerlink" title="1. 架构状态和指令集"></a>1. 架构状态和指令集</h3><p>一个计算机架构是由它的指令集(instruction set)和架构状态(architectural state：The architectural state is the part of the CPU which holds the state of a process. )。MIPS处理器的架构状态包含程序计数器和32个寄存器。指令集决定了微架构的硬件层面的复杂程度。</p>
+<h3 id="2-设计流程"><a href="#2-设计流程" class="headerlink" title="2. 设计流程"></a>2. 设计流程</h3><p>微架构可以分成两个相互作用的部分：数据通路(datapath)和控制通路(controlpath)。数据通路包括了内存，寄存器，ALU和分路选择器。控制通路则通过分路选择器（MUX）进行寄存器的enable控制，memory的读写以控制数据通路。</p>
+<p>设计的过程可以分成几个步骤：</p>
+<p>Step 1: 思考需要的硬件需要包含多少状态（多少级）存储元件。</p>
+<p>Step 2: 在两级状态单元之间插入组合逻辑电路以计算next state。</p>
+<p>Step 3: 通常会将架构的memory拆成两部分，一部分存储指令，另一部分存储数据。</p>
+<h4 id="2-1-Case-study：MIPS-Micropossessor"><a href="#2-1-Case-study：MIPS-Micropossessor" class="headerlink" title="2.1 Case study：MIPS Micropossessor"></a>2.1 Case study：MIPS Micropossessor</h4><p>存储元件：存储元件通常还需要reset信号。</p>
+<p>Note：1. instruction mem模块无clk，说明只要地址A改变，RD就会在一个短暂的组合逻辑delay后读出新的指令。2. 其余三个存储元件都是在clk的节拍下进行数据刷新，从时序的角度（寄存器的要求），地址和数据需要在时钟上升沿来之前保持一个setup time，在时钟上升沿来之后保持一个holding time。</p>
+<p>The state of the system is changed only at the clock edge. The address, data, and write enable must setup sometime before the clock edge and must remain stable until a hold time after the clock edge.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/1.png" alt="components"></p>
+<h3 id="3-MIPS-架构"><a href="#3-MIPS-架构" class="headerlink" title="3  MIPS 架构"></a>3  MIPS 架构</h3><p>我们接下来会讨论三种MIPS架构：单周期，多周期和流水线的架构。这三种结构的不同点在于状态存储单元的连接和非架构状态的数量不相同。</p>
+<ol>
+<li><p>单周期微处理器：处理整一个整理在一个周期。</p>
+<p> 特点：控制单元简单，不需要任何的非架构状态。但微处理器的周期时间被最慢的指令所限制。</p>
+</li>
+<li><p>多周期微处理器：处理一条指令用一系列短周期。简单的指令相比于复杂的指令执行更少的周期。多周期的微处理器通过重复使用昂贵的硬件资源如加法器和内存，以减少硬件cost。（adder可能在多个周期以不同用途被调用，多周期微处理器通过添加几个非架构寄存器来保存中间结果）。</p>
+<p> 多周期微处理器一次指处理一个指令，一个指令会花费多个时钟周期。</p>
+</li>
+<li><p>流水线微处理器：将流水线应用在单周期微处理器架构上。</p>
+<p> 特点：可以同时处理多条指令，极大提高系统的吞吐量。流水线则对控制通路的要求更高，需要昂贵的额外的MUX和非架构流水线寄存器。</p>
+</li>
+</ol>
+<h3 id="4-Perfomance-analysis"><a href="#4-Perfomance-analysis" class="headerlink" title="4 Perfomance analysis"></a>4 Perfomance analysis</h3><p>微处理器的性能用执行特点程序（或程序集）所以花费时间而定。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/2.png" alt="execution time"></p>
+<ol>
+<li>instructions: 取决与处理器架构和执行的程序的内容。某些架构下有复杂的指令因而在每个指令可以做更多的事情，但是有种复杂的处理器架构意味着在硬件上更加复杂，往往执行得更慢。（在此处默认执行同一套程序）</li>
+<li>CPI：不同的微处理器架构有不同CPIs。CPI与处理器架构，存储器架构相关。存储器的架构会对CPI产生显著的影响。</li>
+<li>Tc：处理器能运行的最高频率取决于关键路径上的delay和寄存器时序要求。事实上，由于工艺节点的进步，尽管微架构和逻辑不变处理器也能运行在更高的频率上。</li>
+</ol>
 ]]></content>
       <categories>
         <category>Computer architecture</category>
@@ -262,42 +264,40 @@
       </tags>
   </entry>
   <entry>
-    <title>Microarchitecture Part 1</title>
-    <url>/2021/06/07/computer-architecture/microarchitecture-part-1/</url>
+    <title>Microarchitecture Part 3</title>
+    <url>/2021/06/07/computer-architecture/microarchitecture-part-3/</url>
     <content><![CDATA[<p>Reference：</p>
 <ol>
 <li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
 <li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
 </ol>
-<h3 id="1-架构状态和指令集"><a href="#1-架构状态和指令集" class="headerlink" title="1. 架构状态和指令集"></a>1. 架构状态和指令集</h3><p>一个计算机架构是由它的指令集(instruction set)和架构状态(architectural state：The architectural state is the part of the CPU which holds the state of a process. )。MIPS处理器的架构状态包含程序计数器和32个寄存器。指令集决定了微架构的硬件层面的复杂程度。</p>
-<h3 id="2-设计流程"><a href="#2-设计流程" class="headerlink" title="2. 设计流程"></a>2. 设计流程</h3><p>微架构可以分成两个相互作用的部分：数据通路(datapath)和控制通路(controlpath)。数据通路包括了内存，寄存器，ALU和分路选择器。控制通路则通过分路选择器（MUX）进行寄存器的enable控制，memory的读写以控制数据通路。</p>
-<p>设计的过程可以分成几个步骤：</p>
-<p>Step 1: 思考需要的硬件需要包含多少状态（多少级）存储元件。</p>
-<p>Step 2: 在两级状态单元之间插入组合逻辑电路以计算next state。</p>
-<p>Step 3: 通常会将架构的memory拆成两部分，一部分存储指令，另一部分存储数据。</p>
-<h4 id="2-1-Case-study：MIPS-Micropossessor"><a href="#2-1-Case-study：MIPS-Micropossessor" class="headerlink" title="2.1 Case study：MIPS Micropossessor"></a>2.1 Case study：MIPS Micropossessor</h4><p>存储元件：存储元件通常还需要reset信号。</p>
-<p>Note：1. instruction mem模块无clk，说明只要地址A改变，RD就会在一个短暂的组合逻辑delay后读出新的指令。2. 其余三个存储元件都是在clk的节拍下进行数据刷新，从时序的角度（寄存器的要求），地址和数据需要在时钟上升沿来之前保持一个setup time，在时钟上升沿来之后保持一个holding time。</p>
-<p>The state of the system is changed only at the clock edge. The address, data, and write enable must setup sometime before the clock edge and must remain stable until a hold time after the clock edge.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/1.png" alt="components"></p>
-<h3 id="3-MIPS-架构"><a href="#3-MIPS-架构" class="headerlink" title="3  MIPS 架构"></a>3  MIPS 架构</h3><p>我们接下来会讨论三种MIPS架构：单周期，多周期和流水线的架构。这三种结构的不同点在于状态存储单元的连接和非架构状态的数量不相同。</p>
-<ol>
-<li><p>单周期微处理器：处理整一个整理在一个周期。</p>
-<p> 特点：控制单元简单，不需要任何的非架构状态。但微处理器的周期时间被最慢的指令所限制。</p>
-</li>
-<li><p>多周期微处理器：处理一条指令用一系列短周期。简单的指令相比于复杂的指令执行更少的周期。多周期的微处理器通过重复使用昂贵的硬件资源如加法器和内存，以减少硬件cost。（adder可能在多个周期以不同用途被调用，多周期微处理器通过添加几个非架构寄存器来保存中间结果）。</p>
-<p> 多周期微处理器一次指处理一个指令，一个指令会花费多个时钟周期。</p>
-</li>
-<li><p>流水线微处理器：将流水线应用在单周期微处理器架构上。</p>
-<p> 特点：可以同时处理多条指令，极大提高系统的吞吐量。流水线则对控制通路的要求更高，需要昂贵的额外的MUX和非架构流水线寄存器。</p>
-</li>
-</ol>
-<h3 id="4-Perfomance-analysis"><a href="#4-Perfomance-analysis" class="headerlink" title="4 Perfomance analysis"></a>4 Perfomance analysis</h3><p>微处理器的性能用执行特点程序（或程序集）所以花费时间而定。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%201/2.png" alt="execution time"></p>
-<ol>
-<li>instructions: 取决与处理器架构和执行的程序的内容。某些架构下有复杂的指令因而在每个指令可以做更多的事情，但是有种复杂的处理器架构意味着在硬件上更加复杂，往往执行得更慢。（在此处默认执行同一套程序）</li>
-<li>CPI：不同的微处理器架构有不同CPIs。CPI与处理器架构，存储器架构相关。存储器的架构会对CPI产生显著的影响。</li>
-<li>Tc：处理器能运行的最高频率取决于关键路径上的delay和寄存器时序要求。事实上，由于工艺节点的进步，尽管微架构和逻辑不变处理器也能运行在更高的频率上。</li>
-</ol>
+<h2 id="7-Pipeline-Processor-流水线处理器"><a href="#7-Pipeline-Processor-流水线处理器" class="headerlink" title="7. Pipeline Processor 流水线处理器"></a>7. Pipeline Processor 流水线处理器</h2><p>流水线处理器可以通过分割单周期处理成五个部分。因此最高可以有五条指令一起执行。流水线可以有效地提高吞吐量。</p>
+<p>We design a pipelined processor by subdividing the single-cycle processor into five pipeline stages. Thus, five instructions can execute simultaneously, one in each stage.</p>
+<p>流水线从时间的角度充分利用了硬件资源。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/1.png" alt="流水线时间角度上硬件资源"></p>
+<h3 id="7-1-Datapath-数据通路"><a href="#7-1-Datapath-数据通路" class="headerlink" title="7.1 Datapath 数据通路"></a>7.1 Datapath 数据通路</h3><p>读写内存和寄存器组和使用ALU通常是处理的最大delay的部分。五级流水线的每一级都涵盖了一部分这些高延迟部分。具体得，我们可以分成取指IF，译码DE，运算EX，读写内存MEM，写回WB五个部分。</p>
+<p>Reading and writing the memory and register file and using the ALU typically constitute the biggest delays in the processor. We choose five pipeline stages so that each stage involves exactly one of these slow steps. Specifically, we call the five stages Fetch(IF), Decode(DE), Execute(EX), Memory(MEM), and Writeback(WB).</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/2.png" alt="错误5-stage"></p>
+<p>简单得增加几级reg在组合逻辑电路和读写存储单元之间会导致一些问题，上图便有一处错误！对于一些指令数据/地址需要提前到达，会有时序上的问题</p>
+<p>One of the subtle but critical issues in pipelining is that all signals associated with a particular instruction must advance through the pipeline in unison</p>
+<p>错误在于寄存器组的写逻辑上。寄存器在流水线中是在DE中读取数据，WB中回写数据。然而在回写的地址在DE准备好，而不是WB。</p>
+<p>The error is in the register file write logic, The register file is peculiar because it is read in the Decode stage and written in the Writeback stage. And the correct address is already covered by other instructions when it comes to writeback stage.</p>
+<p>这个错误可以简单通过下图修改，将正确的地址一起传递到WB再写回，因此这个地址和WB回写的数据是逻辑上同步的。</p>
+<p>The WriteReg signal is now pipelined along through the Memory and Writeback stages, so it remains in sync with the rest of the instruction. WriteRegW and ResultW are fed back together to the register file in the Writeback stage.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/3.png" alt="正确5-stage"></p>
+<p>事实上，流水线的设计关键难点在于处理hazards，处理指令执行的顺序。这个部分会在下面单独讨论。</p>
+<p>A central challenge in pipelined systems is handling hazards that occur when the results of one instruction are needed by a subsequent instruction before the former instruction has completed. This section would be discussed sepearately later.</p>
+<h3 id="7-2-Pipelined-Control-流水线控制"><a href="#7-2-Pipelined-Control-流水线控制" class="headerlink" title="7.2 Pipelined Control 流水线控制"></a>7.2 Pipelined Control 流水线控制</h3><p>通过取指后的opcode和funct译码控制存储的使能信号和MUX的选通信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/4.png" alt="正确5-stage"></p>
+<h3 id="7-3-Hazard"><a href="#7-3-Hazard" class="headerlink" title="7.3 Hazard"></a>7.3 Hazard</h3><p>在流水线系统中，多个指令在时间上同时被执行。当一条指令的的执行依赖于另一条指令完成的结果，则hazard发生。</p>
+<p>When one instruction is dependent on the results of another that has not yet completed, a hazard occurs.</p>
+<p>RAW(Read after write) hazard：下图表示hazard发生流水线写入寄存器组，如果接下来的两条指令读取寄存器时</p>
+<p>RAW(Read after write) hazard：The diagram shows that hazards may occur in this pipeline when an instruction writes a register and either of the two subsequent instructions read that register.<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/5.png" alt="hazard"></p>
+<p>通常来说如果遇到RAW hazard 最直白的解决方法就是流水线停下来等到hazard解决。仔细观察上述指令，我们可以发现：Add在EX时候在ALU已经完成了计算，在MEM级不需要任何操作。空等了一个周期才WB。可以通过提前向前传递ALU的结果来提前WB，减少流水线放慢的效率。</p>
+<p>On closer inspection, however, observe that the sum from the add instruction is computed by the ALU in cycle 3 and is not strictly needed by the and instruction until the ALU uses it in cycle 4. In principle, we should be able to forward the result from one instruction to the next to resolve the RAW hazard without slowing down the pipeline.</p>
+<p>Hazards 可以分成data hazard 和 control hazard。data hazard 发生在指令尝试读取一个寄存器，但该寄存器还未被写回时。control hazard 发生在当跳转指令还没决定下一条该跳转到那一条指令时候，取指已经发生。</p>
+<p>Hazards are classified as data hazards or control hazards. A data hazard occurs when an instruction tries to read a register that has not yet been written back by a previous instruction. A control hazard occurs when the decision of what instruction to fetch next has not been made by the time the fetch takes place.</p>
+<p>A    Data Hazard</p>
+<p>B)    Control Hazard</p>
+<p>C)    Branch Hazard</p>
 ]]></content>
       <categories>
         <category>Computer architecture</category>
@@ -306,20 +306,6 @@
       <tags>
         <tag>Computer architecture</tag>
         <tag>Microarchitecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 3</title>
-    <url>/2021/05/29/cdc/cdc-3/</url>
-    <content><![CDATA[<p>Check</p>
-]]></content>
-      <categories>
-        <category>VLSI</category>
-        <category>CDC</category>
-      </categories>
-      <tags>
-        <tag>VLSI</tag>
-        <tag>CDC</tag>
       </tags>
   </entry>
   <entry>
@@ -434,6 +420,20 @@
 <li>Multi-cycle path formulation 多周期路径规划    </li>
 <li>FIFO</li>
 </ol>
+]]></content>
+      <categories>
+        <category>VLSI</category>
+        <category>CDC</category>
+      </categories>
+      <tags>
+        <tag>VLSI</tag>
+        <tag>CDC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clock Domain Crossing (CDC) Part 3</title>
+    <url>/2021/05/29/cdc/cdc-3/</url>
+    <content><![CDATA[<p>Check</p>
 ]]></content>
       <categories>
         <category>VLSI</category>
