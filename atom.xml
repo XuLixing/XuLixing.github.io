@@ -139,72 +139,10 @@
   
   <entry>
     <title>Clock Domain Crossing (CDC) Part 1</title>
-    <link href="https://xulixing.github.io/2021/05/29/cdc-1/"/>
-    <id>https://xulixing.github.io/2021/05/29/cdc-1/</id>
-    <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-05-30T06:51:46.662Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;《Clock Domain</summary>
-        
-      
-    
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 2</title>
-    <link href="https://xulixing.github.io/2021/05/29/cdc-2/"/>
-    <id>https://xulixing.github.io/2021/05/29/cdc-2/</id>
-    <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-09-19T07:51:34.251Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Reference：&lt;br&gt;《Clock Domain Crossing (CDC) Design &amp;amp; Verification Techniques Using SystemVerilog》    -    Clifford E.</summary>
-        
-      
-    
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 1</title>
     <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-1/"/>
     <id>https://xulixing.github.io/2021/05/29/cdc/cdc-1/</id>
     <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-05-30T06:51:46.662Z</updated>
+    <updated>2022-01-27T06:30:14.495Z</updated>
     
     
       
@@ -221,44 +159,6 @@
     
     
     
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 3</title>
-    <link href="https://xulixing.github.io/2021/05/29/cdc-3/"/>
-    <id>https://xulixing.github.io/2021/05/29/cdc-3/</id>
-    <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-11-05T17:02:07.015Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Check&lt;/p&gt;
-</summary>
-        
-      
-    
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
     
   </entry>
   
@@ -267,7 +167,7 @@
     <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-2/"/>
     <id>https://xulixing.github.io/2021/05/29/cdc/cdc-2/</id>
     <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-09-19T07:51:34.251Z</updated>
+    <updated>2022-01-27T06:30:19.256Z</updated>
     
     
       
@@ -280,44 +180,6 @@
     
     
     
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Clock Domain Crossing (CDC) Part 3</title>
-    <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-3/"/>
-    <id>https://xulixing.github.io/2021/05/29/cdc/cdc-3/</id>
-    <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-11-05T17:02:07.015Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Check&lt;/p&gt;
-</summary>
-        
-      
-    
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
-    
-    
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
     
   </entry>
   
