@@ -6,7 +6,7 @@
   <link href="https://xulixing.github.io/atom.xml" rel="self"/>
   
   <link href="https://xulixing.github.io/"/>
-  <updated>2021-11-06T03:08:10.644Z</updated>
+  <updated>2022-05-24T06:25:38.181Z</updated>
   <id>https://xulixing.github.io/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://xulixing.github.io/2022/05/24/design-for-testability/dft-2/"/>
+    <id>https://xulixing.github.io/2022/05/24/design-for-testability/dft-2/</id>
+    <published>2022-05-24T06:25:21.320Z</published>
+    <updated>2022-05-24T06:25:38.181Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://xulixing.github.io/2022/05/13/design-for-testability/limfxinfo/"/>
+    <id>https://xulixing.github.io/2022/05/13/design-for-testability/limfxinfo/</id>
+    <published>2022-05-13T08:08:18.775Z</published>
+    <updated>2022-05-24T06:35:58.175Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">{&quot;articleId&quot;:&quot;7c760bf9-c204-4400-9259-ee5dfd3782fb&quot;,&quot;cookie&quot;:&quot;&quot;,&quot;baseUrl&quot;:&quot;https://www.limfx.pro&quot;,&quot;mdName&quot;:&quot;&quot;,&quot;keyvalPair&quot;:{&quot;&quot;:&quot;&quot;,&quot;standard-</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://xulixing.github.io/2022/02/07/design-for-testability/standard-ieee-test-access-methods/"/>
+    <id>https://xulixing.github.io/2022/02/07/design-for-testability/standard-ieee-test-access-methods/</id>
+    <published>2022-02-07T08:46:04.863Z</published>
+    <updated>2022-05-14T07:50:35.601Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;title: ‘Standard IEEE (1149.1) Test Access Methods’&lt;br&gt;date: 2022-02-07 16:45:02&lt;br&gt;tags: DFT &lt;/p&gt;
+&lt;hr&gt;
+&lt;!-- title: Standard IEEE</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>5. Memory Hierachy</title>
@@ -74,38 +132,6 @@
   </entry>
   
   <entry>
-    <title>Microarchitecture Part 2</title>
-    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/"/>
-    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/</id>
-    <published>2021-06-06T16:00:00.000Z</published>
-    <updated>2021-06-07T10:17:50.074Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;em&gt;Digital Design and Computer Architecture,&lt;/em&gt; by David Harris, Sarah Harris&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Introduction to</summary>
-        
-      
-    
-    
-    
-    <category term="Computer architecture" scheme="https://xulixing.github.io/categories/Computer-architecture/"/>
-    
-    <category term="Microarchitecture" scheme="https://xulixing.github.io/categories/Computer-architecture/Microarchitecture/"/>
-    
-    
-    <category term="Computer architecture" scheme="https://xulixing.github.io/tags/Computer-architecture/"/>
-    
-    <category term="Microarchitecture" scheme="https://xulixing.github.io/tags/Microarchitecture/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Microarchitecture Part 3</title>
     <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/"/>
     <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-3/</id>
@@ -138,11 +164,43 @@
   </entry>
   
   <entry>
+    <title>Microarchitecture Part 2</title>
+    <link href="https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/"/>
+    <id>https://xulixing.github.io/2021/06/07/computer-architecture/microarchitecture-part-2/</id>
+    <published>2021-06-06T16:00:00.000Z</published>
+    <updated>2021-06-07T10:17:50.074Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Reference：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Digital Design and Computer Architecture,&lt;/em&gt; by David Harris, Sarah Harris&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Introduction to</summary>
+        
+      
+    
+    
+    
+    <category term="Computer architecture" scheme="https://xulixing.github.io/categories/Computer-architecture/"/>
+    
+    <category term="Microarchitecture" scheme="https://xulixing.github.io/categories/Computer-architecture/Microarchitecture/"/>
+    
+    
+    <category term="Computer architecture" scheme="https://xulixing.github.io/tags/Computer-architecture/"/>
+    
+    <category term="Microarchitecture" scheme="https://xulixing.github.io/tags/Microarchitecture/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Clock Domain Crossing (CDC) Part 1</title>
     <link href="https://xulixing.github.io/2021/05/29/cdc/cdc-1/"/>
     <id>https://xulixing.github.io/2021/05/29/cdc/cdc-1/</id>
     <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2022-01-27T06:30:14.495Z</updated>
+    <updated>2022-02-14T08:51:11.974Z</updated>
     
     
       
@@ -184,34 +242,27 @@
   </entry>
   
   <entry>
-    <title>DFT 1. Fault_model &amp; Failure_mechanisms</title>
-    <link href="https://xulixing.github.io/2021/05/29/design-for-testability/dft-1-fault-type/"/>
-    <id>https://xulixing.github.io/2021/05/29/design-for-testability/dft-1-fault-type/</id>
+    <title>DFT Introduction</title>
+    <link href="https://xulixing.github.io/2021/05/29/design-for-testability/dft-basic/"/>
+    <id>https://xulixing.github.io/2021/05/29/design-for-testability/dft-basic/</id>
     <published>2021-05-28T16:00:00.000Z</published>
-    <updated>2021-11-06T02:45:15.301Z</updated>
+    <updated>2022-05-24T07:36:02.779Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;Core concept: Stuck-at-fault (SAT)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img</summary>
+    <summary type="html">&lt;p&gt;在芯片设计-制造流程结束之后，测试（testing）也在芯片领域里面有着极其重要的地位。这个过程中，操作面相的对象是实际生产完成的chip，目的上检测芯片的生产过程中，产生缺陷（defect）。和前端的设计/验证不同，测试并不是使用软件的方法（EDA工具）去发现并暴露错误，</summary>
         
       
     
     
     
-    <category term="VLSI" scheme="https://xulixing.github.io/categories/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/categories/VLSI/CDC/"/>
+    <category term="DFT" scheme="https://xulixing.github.io/categories/DFT/"/>
     
     
-    <category term="VLSI" scheme="https://xulixing.github.io/tags/VLSI/"/>
-    
-    <category term="CDC" scheme="https://xulixing.github.io/tags/CDC/"/>
+    <category term="DFT" scheme="https://xulixing.github.io/tags/DFT/"/>
     
   </entry>
   
@@ -245,7 +296,7 @@
     <link href="https://xulixing.github.io/2021/04/05/fsm-coding/notes-fsm-coding/"/>
     <id>https://xulixing.github.io/2021/04/05/fsm-coding/notes-fsm-coding/</id>
     <published>2021-04-05T03:35:33.000Z</published>
-    <updated>2021-04-17T15:53:25.008Z</updated>
+    <updated>2021-04-17T15:53:25.000Z</updated>
     
     
       

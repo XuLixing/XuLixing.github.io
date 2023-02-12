@@ -14,6 +14,75 @@
       </tags>
   </entry>
   <entry>
+    <title></title>
+    <url>/2022/05/24/design-for-testability/dft-2/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/05/13/design-for-testability/limfxinfo/</url>
+    <content><![CDATA[{"articleId":"7c760bf9-c204-4400-9259-ee5dfd3782fb","cookie":"","baseUrl":"https://www.limfx.pro","mdName":"","keyvalPair":{"":"","standard-ieee-test-access-methods.md":"7c760bf9-c204-4400-9259-ee5dfd3782fb"},"keyvalstring":"{\"\":\"\",\"standard-ieee-test-access-methods.md\":\"7c760bf9-c204-4400-9259-ee5dfd3782fb\"}"}]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/02/07/design-for-testability/standard-ieee-test-access-methods/</url>
+    <content><![CDATA[<hr>
+<p>title: ‘Standard IEEE (1149.1) Test Access Methods’<br>date: 2022-02-07 16:45:02<br>tags: DFT </p>
+<hr>
+<!-- title: Standard IEEE (1149.1) Test Access Methods; -->
+<!-- keywords: DFT; -->
+<!-- description: Brief description of IEEE standard 1149.1 -->
+
+
+<h2 id="0-overview"><a href="#0-overview" class="headerlink" title="0.overview"></a>0.overview</h2><p>为什么我们需要边界扫描：</p>
+<ol>
+<li><p>IP的集成（拼装）使得一个board上的互联（interconnect）变得极其复杂，互联也可能会产生错误，因尔除去IP内部的被测到，这些互联的错误也需要被测到，往往这些fault的激发（activation）会极其复杂，如果是从顶层角度，即ATE给激励，则会产生不可接受的测试cost。 </p>
+</li>
+<li><p>如果我们只想测试一块board中某一个core，core的输入来自某个core的输出，core的输出又要经过另一个core才到PO，那么从top level的角度来说，这个core的testability极低。因为激励的灌入和响应的收集极其困难。</p>
+</li>
+</ol>
+<p>Test Access Methods 是不同于Scan扫描的一种方法，它的关注点和目标主要在CUT的边界，而扫描关注的往往是CUT内部的信号。这种方法我们也通常抽象成Boundary Scan 边界扫描。</p>
+<p>边界扫描有两个特点：</p>
+<ol>
+<li><p>边界扫描的design不能影响到边界包围内core内部的正常工作。 </p>
+</li>
+<li><p>边界扫描的目的在于能独立一块board其他core，来测试一个core/CUT。边界扫描衍生出一套IEEE std. 1149.1, 这套协议常常被成为Boundary Scan 边界扫描。</p>
+</li>
+</ol>
+<p>但是其实1149.1 协议本身除了边界扫描（通过边界寄存器）这个功能，还有一个功能为Debug Access（通过数据寄存器）。为了区分，下面用BS-1149.1 来简称这个协议，BS-1149.1 有自己的定义好的架构和硬件。它用指令（instructions）去控制CUT内部和外部的连接情况以达到独立于其他core单独测试（isolating testing）某块CUT的目的。</p>
+<p>BS-1149.1 还定义了BSDL（Boundary Scan Description language）</p>
+<hr>
+<h2 id="1-边界扫描的基础："><a href="#1-边界扫描的基础：" class="headerlink" title="1.边界扫描的基础："></a>1.边界扫描的基础：</h2><p>   在芯片开始容纳更多复杂的组件（component），并且组件内部本身开始变得更加复杂时，采用片外（off-chip）的方法去测试芯片已经显得不实际。一个简单的解决思路是，探究出一套能单独测试每一个组件的方法，并且不会产生额外过多的测试成本（Test cost）。这个方法需要有几个特点：</p>
+<p>   1）这个方法需要复用性，如果不同的组件都有自己独立的测试interface，那么测试将变得极为困难，所以最好最好需要每个组件都有一组类似的测试接口。</p>
+<p>   2）随着测试越来越复杂，测试工程师希望能用一个program来使得测试自动化，因而测试过程能用一套类似的底层控制指令集合来控制实际的测试过程。</p>
+<p>   围绕第一点，在1985年，设计工程师，芯片厂商和测试工程师门衍生出了一套通用测试的接口，JTAG （Joint Test Access Group), 这个group能够将测试的数据移入待测试的组件中来测试。这也是IEEE-1149.1这个标准的前身。当这个接口开始成为产业的一种趋势和标准后，ATE （automatic testing equipment）的硬件发展和软件开发开始获得飞速的发展。</p>
+<p><img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/general_structure_of_BS1149.1.png" alt="general_structure_of_BS1149.1"></p>
+<p>   从上图可以看出，这套协议核心是：用外部的，数量少的信号（Test Access Ports）去控制需要测试组件或者说core的边界的scan flopflops chain。利用这个chain，我们可以将需要的测试数据移入（shift in）和收集（shift out）相应的响应（response）。因而这个方法可以将待测试的core于片内邻近的core区分开，实现单独测试的需求。</p>
+<p>   围绕第二点，BS-1149.1定义了几组指令集合，将会在第三节详细介绍。</p>
+<h2 id="2-BS-1149-1-架构"><a href="#2-BS-1149-1-架构" class="headerlink" title="2. BS-1149.1 架构"></a>2. BS-1149.1 架构</h2><p>上图只展示scan register包围core的这一部分，这部分通常在结构上，我们抽象成BSC（Boundary Scan Cell）。关于如何通过通用的Test Access Port去控制BSC，还需要一个具体架构。</p>
+<p><img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/detailed_structure_of_BS1149.1.png" alt="detailed_structure_of_BS1149.1"></p>
+<p>   首先我们关注一下几个Test Access Port：</p>
+<p>   TDI (Test Data In) ，TDO (Test Data Out)，这两个port负责串行地输入，输出数据。</p>
+<p>   TMS (Test Mode Select)：把数据传输放到特定的state下进行。</p>
+<p>   TCLK (Test Clock) ：连接负责测试时钟信号。</p>
+<p>   TRST (Test Reset)：这是一个optional的端口，连接的reset信号可将测试逻辑转变成noninvasive状态。</p>
+<h3 id="2-1-寄存器"><a href="#2-1-寄存器" class="headerlink" title="2.1 寄存器"></a>2.1 寄存器</h3><p>   BS-1149.1 的寄存器主要分成数据寄存器和指令寄存器。</p>
+<h4 id="2-1-1-指令寄存器（IR）"><a href="#2-1-1-指令寄存器（IR）" class="headerlink" title="2.1.1 指令寄存器（IR）"></a>2.1.1 指令寄存器（IR）</h4><pre><code>架构如下图，
+</code></pre>
+<p>   <img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/Instruction_register_structure.png" alt="instruction_register_structure "></p>
+<p>   由于整个测试过程中，测试的控制和进行都是依赖于指令，从信号完整性和可控制的角度上，我们需要先将数据registered。因而这个IR是两级Flipflop的一个硬件结构。当UpdateIR有效时，存在第一级Flipflop的instruction bit才会被传递到第二级Flipflop。<br>     MUX的并行输入里，Din输入的是一个capture指令，Sin（信号来自TDI或者上一模块输出）则输入的是一个shift信号。MUX的选择端，则是用一个ShiftIR信号来控制。MUX的输出的会被ClockIR信号来clocked将信号锁村在第一级Flipflop中。</p>
+<h4 id="2-1-2-数据寄存器（DR）："><a href="#2-1-2-数据寄存器（DR）：" class="headerlink" title="2.1.2 数据寄存器（DR）："></a>2.1.2 数据寄存器（DR）：</h4><h5 id="2-1-2-1-Bypass-Register-（BYR）："><a href="#2-1-2-1-Bypass-Register-（BYR）：" class="headerlink" title="2.1.2.1 Bypass Register （BYR）："></a>2.1.2.1 Bypass Register （BYR）：</h5><p>   Bypass register是BS1149.1 协议中规定必须要存在的寄存器。利用这个bypass的特性还可以用来测试wrapper chain的一个完备性。当ShiftBY=1时，进入旁路模式，原本固定项连的拓扑结构被打破，我们遍可以控制到某一个core的输入和其响应的提前输出。</p>
+<p>  <img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/bypass_register_strucutre.png" alt="bypass_register_structure "><br>  <img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/bypass_example.png" alt="bypass_example "><br>     如上例，我们若只是想测试到core2，可以bypass core1，bypass core3。</p>
+<h5 id="2-1-2-2-Device-Identification-Register-（DIR）"><a href="#2-1-2-2-Device-Identification-Register-（DIR）" class="headerlink" title="2.1.2.2 Device Identification Register （DIR）"></a>2.1.2.2 Device Identification Register （DIR）</h5><p>   这是存放chip的ID的寄存器，我们可以通过分辨输出的数据的ID来判断我们是否访问到了正确的chip。debugger的工具能够根据ID来解码分析，我们具体使用到的test access port。</p>
+<h5 id="2-1-2-3-Boundry-Scan-Register-（BSR）"><a href="#2-1-2-3-Boundry-Scan-Register-（BSR）" class="headerlink" title="2.1.2.3 Boundry Scan Register （BSR）"></a>2.1.2.3 Boundry Scan Register （BSR）</h5><p><img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/Boundary_scan.png" alt="boundary_scan"><br> Boundary scan 能够通过BSR非常简单地解决掉单独core的测试。BSR意味着我们能够直接访问待测的core的边界以施行测试，节约了很多unnecessary的pattern bit，节省了测试费用。TMS，TCLK是并行连接到每一个chip，但是每一个待测的TDI，TDO是串行连接的。<strong>需要注意的是，不管是IP level or chiptop level 还是 package level 都有且只有一组TAP</strong>。<br>     BSR简单地插到core与core相连interconnect中去，使得core的输入和输出的可控制性和可观察性大大增加，具体的BSR的结构如下所示。当core处于功能模式（functional mode），这个register就应该是透明的，数据可以直接通过。<br><img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/BSC.png" alt="BSC"><br><img src="https://github.com/xulixing/blog_images/raw/main/DFT/Boundary_scan/BSC_control.png" alt="BSC_control"></p>
+<h5 id="2-1-2-4-User-Defined-Register-（UDR）"><a href="#2-1-2-4-User-Defined-Register-（UDR）" class="headerlink" title="2.1.2.4 User-Defined Register （UDR）"></a>2.1.2.4 User-Defined Register （UDR）</h5><p>​    update later</p>
+<h3 id="2-2-TAP-Controller"><a href="#2-2-TAP-Controller" class="headerlink" title="2.2 TAP Controller"></a>2.2 TAP Controller</h3><h2 id="3-BS-1149-1-指令"><a href="#3-BS-1149-1-指令" class="headerlink" title="3. BS-1149.1 指令"></a>3. BS-1149.1 指令</h2><h2 id="4-边界扫描链结构"><a href="#4-边界扫描链结构" class="headerlink" title="4. 边界扫描链结构"></a>4. 边界扫描链结构</h2><h2 id="5-BSDL"><a href="#5-BSDL" class="headerlink" title="5.  BSDL"></a>5.  BSDL</h2><h2 id="Reference："><a href="#Reference：" class="headerlink" title="Reference："></a>Reference：</h2><ol>
+<li><a href="https://vlsitutorials.com/">https://vlsitutorials.com/</a></li>
+<li></li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>5. Memory Hierachy</title>
     <url>/2021/11/07/computer-architecture/5.memory-hierachy/</url>
     <content><![CDATA[<h1 id="5-1-Memory-Hierachiy-Overview"><a href="#5-1-Memory-Hierachiy-Overview" class="headerlink" title="5.1  Memory Hierachiy Overview"></a>5.1  Memory Hierachiy Overview</h1><h2 id="5-1-1-Memory-development"><a href="#5-1-1-Memory-development" class="headerlink" title="5.1.1 Memory development"></a>5.1.1 Memory development</h2><p>Memory的性能发展并没有跟上CPU的性能，在计算机运算（CPU和Memory协同）内存的访问时间即数据的搬运时间过长，制约了计算性能。处理器的性能的发展速度远超于内存（如DRAM）的发展速度，这里有电路设计优化的因素，也有工艺的因素。处理器如果需要快速的处理数据，无论是指令还是数据，存储系统都应该能够快速供给。</p>
@@ -178,6 +247,51 @@
       </tags>
   </entry>
   <entry>
+    <title>Microarchitecture Part 3</title>
+    <url>/2021/06/07/computer-architecture/microarchitecture-part-3/</url>
+    <content><![CDATA[<p>Reference：</p>
+<ol>
+<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
+<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
+</ol>
+<h2 id="7-Pipeline-Processor-流水线处理器"><a href="#7-Pipeline-Processor-流水线处理器" class="headerlink" title="7. Pipeline Processor 流水线处理器"></a>7. Pipeline Processor 流水线处理器</h2><p>流水线处理器可以通过分割单周期处理成五个部分。因此最高可以有五条指令一起执行。流水线可以有效地提高吞吐量。</p>
+<p>We design a pipelined processor by subdividing the single-cycle processor into five pipeline stages. Thus, five instructions can execute simultaneously, one in each stage.</p>
+<p>流水线从时间的角度充分利用了硬件资源。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/1.png" alt="流水线时间角度上硬件资源"></p>
+<h3 id="7-1-Datapath-数据通路"><a href="#7-1-Datapath-数据通路" class="headerlink" title="7.1 Datapath 数据通路"></a>7.1 Datapath 数据通路</h3><p>读写内存和寄存器组和使用ALU通常是处理的最大delay的部分。五级流水线的每一级都涵盖了一部分这些高延迟部分。具体得，我们可以分成取指IF，译码DE，运算EX，读写内存MEM，写回WB五个部分。</p>
+<p>Reading and writing the memory and register file and using the ALU typically constitute the biggest delays in the processor. We choose five pipeline stages so that each stage involves exactly one of these slow steps. Specifically, we call the five stages Fetch(IF), Decode(DE), Execute(EX), Memory(MEM), and Writeback(WB).</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/2.png" alt="错误5-stage"></p>
+<p>简单得增加几级reg在组合逻辑电路和读写存储单元之间会导致一些问题，上图便有一处错误！对于一些指令数据/地址需要提前到达，会有时序上的问题</p>
+<p>One of the subtle but critical issues in pipelining is that all signals associated with a particular instruction must advance through the pipeline in unison</p>
+<p>错误在于寄存器组的写逻辑上。寄存器在流水线中是在DE中读取数据，WB中回写数据。然而在回写的地址在DE准备好，而不是WB。</p>
+<p>The error is in the register file write logic, The register file is peculiar because it is read in the Decode stage and written in the Writeback stage. And the correct address is already covered by other instructions when it comes to writeback stage.</p>
+<p>这个错误可以简单通过下图修改，将正确的地址一起传递到WB再写回，因此这个地址和WB回写的数据是逻辑上同步的。</p>
+<p>The WriteReg signal is now pipelined along through the Memory and Writeback stages, so it remains in sync with the rest of the instruction. WriteRegW and ResultW are fed back together to the register file in the Writeback stage.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/3.png" alt="正确5-stage"></p>
+<p>事实上，流水线的设计关键难点在于处理hazards，处理指令执行的顺序。这个部分会在下面单独讨论。</p>
+<p>A central challenge in pipelined systems is handling hazards that occur when the results of one instruction are needed by a subsequent instruction before the former instruction has completed. This section would be discussed sepearately later.</p>
+<h3 id="7-2-Pipelined-Control-流水线控制"><a href="#7-2-Pipelined-Control-流水线控制" class="headerlink" title="7.2 Pipelined Control 流水线控制"></a>7.2 Pipelined Control 流水线控制</h3><p>通过取指后的opcode和funct译码控制存储的使能信号和MUX的选通信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/4.png" alt="正确5-stage"></p>
+<h3 id="7-3-Hazard"><a href="#7-3-Hazard" class="headerlink" title="7.3 Hazard"></a>7.3 Hazard</h3><p>在流水线系统中，多个指令在时间上同时被执行。当一条指令的的执行依赖于另一条指令完成的结果，则hazard发生。</p>
+<p>When one instruction is dependent on the results of another that has not yet completed, a hazard occurs.</p>
+<p>RAW(Read after write) hazard：下图表示hazard发生流水线写入寄存器组，如果接下来的两条指令读取寄存器时</p>
+<p>RAW(Read after write) hazard：The diagram shows that hazards may occur in this pipeline when an instruction writes a register and either of the two subsequent instructions read that register.<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/5.png" alt="hazard"></p>
+<p>通常来说如果遇到RAW hazard 最直白的解决方法就是流水线停下来等到hazard解决。仔细观察上述指令，我们可以发现：Add在EX时候在ALU已经完成了计算，在MEM级不需要任何操作。空等了一个周期才WB。可以通过提前向前传递ALU的结果来提前WB，减少流水线放慢的效率。</p>
+<p>On closer inspection, however, observe that the sum from the add instruction is computed by the ALU in cycle 3 and is not strictly needed by the and instruction until the ALU uses it in cycle 4. In principle, we should be able to forward the result from one instruction to the next to resolve the RAW hazard without slowing down the pipeline.</p>
+<p>Hazards 可以分成data hazard 和 control hazard。data hazard 发生在指令尝试读取一个寄存器，但该寄存器还未被写回时。control hazard 发生在当跳转指令还没决定下一条该跳转到那一条指令时候，取指已经发生。</p>
+<p>Hazards are classified as data hazards or control hazards. A data hazard occurs when an instruction tries to read a register that has not yet been written back by a previous instruction. A control hazard occurs when the decision of what instruction to fetch next has not been made by the time the fetch takes place.</p>
+<p>A    Data Hazard</p>
+<p>B)    Control Hazard</p>
+<p>C)    Branch Hazard</p>
+]]></content>
+      <categories>
+        <category>Computer architecture</category>
+        <category>Microarchitecture</category>
+      </categories>
+      <tags>
+        <tag>Computer architecture</tag>
+        <tag>Microarchitecture</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Microarchitecture Part 2</title>
     <url>/2021/06/07/computer-architecture/microarchitecture-part-2/</url>
     <content><![CDATA[<p>Reference：</p>
@@ -253,51 +367,6 @@
 </ol>
 <h2 id="6-Multicycle-Processor-多周期微处理器"><a href="#6-Multicycle-Processor-多周期微处理器" class="headerlink" title="6. Multicycle Processor 多周期微处理器"></a>6. Multicycle Processor 多周期微处理器</h2><p>多周期处理解决上述的问题通过把指令拆成几个步骤。不同的指令有不同数量的步骤，复杂的指令步骤更多，因而需要更多时间完成。</p>
 <p>The multicycle processor addresses these weaknesses by breaking an instruction into multiple shorter steps. Different instructions use different numbers of steps, so simpler instructions can complete faster than more complex ones.</p>
-]]></content>
-      <categories>
-        <category>Computer architecture</category>
-        <category>Microarchitecture</category>
-      </categories>
-      <tags>
-        <tag>Computer architecture</tag>
-        <tag>Microarchitecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Microarchitecture Part 3</title>
-    <url>/2021/06/07/computer-architecture/microarchitecture-part-3/</url>
-    <content><![CDATA[<p>Reference：</p>
-<ol>
-<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
-<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
-</ol>
-<h2 id="7-Pipeline-Processor-流水线处理器"><a href="#7-Pipeline-Processor-流水线处理器" class="headerlink" title="7. Pipeline Processor 流水线处理器"></a>7. Pipeline Processor 流水线处理器</h2><p>流水线处理器可以通过分割单周期处理成五个部分。因此最高可以有五条指令一起执行。流水线可以有效地提高吞吐量。</p>
-<p>We design a pipelined processor by subdividing the single-cycle processor into five pipeline stages. Thus, five instructions can execute simultaneously, one in each stage.</p>
-<p>流水线从时间的角度充分利用了硬件资源。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/1.png" alt="流水线时间角度上硬件资源"></p>
-<h3 id="7-1-Datapath-数据通路"><a href="#7-1-Datapath-数据通路" class="headerlink" title="7.1 Datapath 数据通路"></a>7.1 Datapath 数据通路</h3><p>读写内存和寄存器组和使用ALU通常是处理的最大delay的部分。五级流水线的每一级都涵盖了一部分这些高延迟部分。具体得，我们可以分成取指IF，译码DE，运算EX，读写内存MEM，写回WB五个部分。</p>
-<p>Reading and writing the memory and register file and using the ALU typically constitute the biggest delays in the processor. We choose five pipeline stages so that each stage involves exactly one of these slow steps. Specifically, we call the five stages Fetch(IF), Decode(DE), Execute(EX), Memory(MEM), and Writeback(WB).</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/2.png" alt="错误5-stage"></p>
-<p>简单得增加几级reg在组合逻辑电路和读写存储单元之间会导致一些问题，上图便有一处错误！对于一些指令数据/地址需要提前到达，会有时序上的问题</p>
-<p>One of the subtle but critical issues in pipelining is that all signals associated with a particular instruction must advance through the pipeline in unison</p>
-<p>错误在于寄存器组的写逻辑上。寄存器在流水线中是在DE中读取数据，WB中回写数据。然而在回写的地址在DE准备好，而不是WB。</p>
-<p>The error is in the register file write logic, The register file is peculiar because it is read in the Decode stage and written in the Writeback stage. And the correct address is already covered by other instructions when it comes to writeback stage.</p>
-<p>这个错误可以简单通过下图修改，将正确的地址一起传递到WB再写回，因此这个地址和WB回写的数据是逻辑上同步的。</p>
-<p>The WriteReg signal is now pipelined along through the Memory and Writeback stages, so it remains in sync with the rest of the instruction. WriteRegW and ResultW are fed back together to the register file in the Writeback stage.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/3.png" alt="正确5-stage"></p>
-<p>事实上，流水线的设计关键难点在于处理hazards，处理指令执行的顺序。这个部分会在下面单独讨论。</p>
-<p>A central challenge in pipelined systems is handling hazards that occur when the results of one instruction are needed by a subsequent instruction before the former instruction has completed. This section would be discussed sepearately later.</p>
-<h3 id="7-2-Pipelined-Control-流水线控制"><a href="#7-2-Pipelined-Control-流水线控制" class="headerlink" title="7.2 Pipelined Control 流水线控制"></a>7.2 Pipelined Control 流水线控制</h3><p>通过取指后的opcode和funct译码控制存储的使能信号和MUX的选通信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/4.png" alt="正确5-stage"></p>
-<h3 id="7-3-Hazard"><a href="#7-3-Hazard" class="headerlink" title="7.3 Hazard"></a>7.3 Hazard</h3><p>在流水线系统中，多个指令在时间上同时被执行。当一条指令的的执行依赖于另一条指令完成的结果，则hazard发生。</p>
-<p>When one instruction is dependent on the results of another that has not yet completed, a hazard occurs.</p>
-<p>RAW(Read after write) hazard：下图表示hazard发生流水线写入寄存器组，如果接下来的两条指令读取寄存器时</p>
-<p>RAW(Read after write) hazard：The diagram shows that hazards may occur in this pipeline when an instruction writes a register and either of the two subsequent instructions read that register.<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/5.png" alt="hazard"></p>
-<p>通常来说如果遇到RAW hazard 最直白的解决方法就是流水线停下来等到hazard解决。仔细观察上述指令，我们可以发现：Add在EX时候在ALU已经完成了计算，在MEM级不需要任何操作。空等了一个周期才WB。可以通过提前向前传递ALU的结果来提前WB，减少流水线放慢的效率。</p>
-<p>On closer inspection, however, observe that the sum from the add instruction is computed by the ALU in cycle 3 and is not strictly needed by the and instruction until the ALU uses it in cycle 4. In principle, we should be able to forward the result from one instruction to the next to resolve the RAW hazard without slowing down the pipeline.</p>
-<p>Hazards 可以分成data hazard 和 control hazard。data hazard 发生在指令尝试读取一个寄存器，但该寄存器还未被写回时。control hazard 发生在当跳转指令还没决定下一条该跳转到那一条指令时候，取指已经发生。</p>
-<p>Hazards are classified as data hazards or control hazards. A data hazard occurs when an instruction tries to read a register that has not yet been written back by a previous instruction. A control hazard occurs when the decision of what instruction to fetch next has not been made by the time the fetch takes place.</p>
-<p>A    Data Hazard</p>
-<p>B)    Control Hazard</p>
-<p>C)    Branch Hazard</p>
 ]]></content>
       <categories>
         <category>Computer architecture</category>
@@ -415,10 +484,29 @@
 ]]></content>
   </entry>
   <entry>
-    <title>DFT 1. Fault_model &amp; Failure_mechanisms</title>
-    <url>/2021/05/29/design-for-testability/dft-1-fault-type/</url>
-    <content><![CDATA[<ol>
-<li>Core concept: Stuck-at-fault (SAT)</li>
+    <title>DFT Introduction</title>
+    <url>/2021/05/29/design-for-testability/dft-basic/</url>
+    <content><![CDATA[<p>在芯片设计-制造流程结束之后，测试（testing）也在芯片领域里面有着极其重要的地位。这个过程中，操作面相的对象是实际生产完成的chip，目的上检测芯片的生产过程中，产生缺陷（defect）。和前端的设计/验证不同，测试并不是使用软件的方法（EDA工具）去发现并暴露错误，这个过程还是发生在tape-in。 </p>
+<p>测试则是发生在tape-out之后，通过物理的测试机器（tester）去<strong>提供激励</strong>和<strong>收集响应</strong>来验证芯片中是否defect。笼统地来说，测试的角色则是，保证芯片（或者说产品）的正确性（correctness）和有效性（effectiveness）。</p>
+<ol start="0">
+<li>DFT需要解决掉的几件事情<ol>
+<li>Fault model：我们需要测试到defect，但是这个defect是一个偏向于器件物理和材料的概念，我们需要能够统计和量化它。思路是建立fault model，电路中每个位置可能出现的defect抽象成一个fault，然后用fault的可测试性来描述对defect的测试能力。</li>
+<li>Pattern generation：有了fault model之后，我们则将defect这一个物理概念转译为一个叫做fault的逻辑概念。但是这种fault大概率是处于电路内部，芯片tape-out之后我们只能从input&amp;output端口去观察芯片的行为，意味着我们要从input控制到它，并且这个fault能传递到output被观察到。那么这种特定的input，就被称之为测试向量test pattern或者test vector。产生test pattern的整个过程则称之为pattern generation。</li>
+<li>Fault simulation：有了pattern，我们则理论上能够测试到特定的的fault。那么我们如何来描述测试向量的质量呢？即按照特定fault按照算法，产生的test pattern，是否在输入实际电路后也是能测试那个特定的fault？这里用到fault simulation。值得注意的是，在第2部，产生pattern时候我们通常会添加一些辅助硬件电路。因而实际上在考虑一些时序的corner的时，simulation会fail，因而实际上达不到允许的fault coverage。</li>
+<li>ATE/BIST：通过了fault simulation的pattern，通常我们就认为是有效的pattern，那么这些pattern将如何输入到实际的芯片中去的呢？一种方法就是利用ATE（Automatic Test Equipment）直接打激励进入芯片。另一种则是利用BIST逻辑（Built-in—self-test）即pattern会通过BIST自己产生，输入到芯片，并且BIST会自动收集响应来判断是否是期望的响应。</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>Fault Model<br> fault有不同的类型，用于区分不同的defect的类型。文章在这里做一个极其粗糙的简化，将fault简答地分成stuck-at fault和at-speed fault。在这里的简化，是为了略过对defect形成的不同的物理原因的讨论，抓住DFT关注和讨论的主线。</p>
+<ol>
+<li><p>功能相关: Stuck-at-fault (SAF)</p>
+<p>Stuck-at是最</p>
+</li>
+<li><p>速度相关：At—speed-fault （ACF）</p>
+</li>
+</ol>
+</li>
 </ol>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/DFT/1.fault_model%20%26%20failure_mechanisoms/1.png" alt="fault sites"></p>
 <p>Notes: </p>
@@ -440,21 +528,21 @@
 </li>
 <li><p>Coupling fault: Between Cells (Victim and Aggressor)</p>
 </li>
-<li><p>Delay fault model: slow to propagate a 1 to 0 for example.</p>
+<li><p>Delay fault model: slow to propagate a 1 to 0 for example.$</p>
 </li>
 <li><p>Crosstalk defects: </p>
 </li>
 </ol>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/DFT/1.fault_model%20%26%20failure_mechanisoms/2.png" alt="Crosstalk defects"></p>
 <p>source from: tow parasitc capacitance between two signal nets.</p>
+<pre><code>### * 1. 1. 1. 1. 1. 1. 1. 1. 1. &gt; &gt;         ``·![]()
+</code></pre>
 ]]></content>
       <categories>
-        <category>VLSI</category>
-        <category>CDC</category>
+        <category>DFT</category>
       </categories>
       <tags>
-        <tag>VLSI</tag>
-        <tag>CDC</tag>
+        <tag>DFT</tag>
       </tags>
   </entry>
   <entry>
